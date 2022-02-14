@@ -1,0 +1,102 @@
+@import "./custom.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+footer {
+  background-color: $primary;
+}
+.btn-qhali {
+  background-color: $primary !important;
+}
+.text-qhali {
+  color: $primaryDark;
+}
+.carouselImage {
+  background-color: #777;
+}
+.shadow-effect {
+  position: relative;
+}
+.shadow-effect:before,
+.shadow-effect:after {
+  z-index: -1;
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.shadow-effect:after {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
+nav {
+  z-index: 2;
+}
+.carousel-item {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+}
+.nav-carousel-caption {
+  padding-bottom: 12rem;
+}
+
+.bannerCarousel {
+  height: 90vh;
+}
+
+.bannerCarousel::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.carouselImage {
+  height: 100%;
+  object-fit: cover;
+}
+
+#testimonial-carousel-item {
+  height: 300px;
+  background-color: #ffffff;
+}
+
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.carousel-background {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+}
+
+@media only screen and (max-width: 768px) {
+  .nav-carousel {
+    margin-top: 0px;
+  }
+  nav {
+    z-index: 2;
+  }
+}

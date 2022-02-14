@@ -1,0 +1,43 @@
+@import "/src/custom.scss";
+.navbar {
+  &__logo {
+    width: 90px;
+    margin: 0;
+    padding: 0;
+    #logo {
+      width: 100%;
+    }
+  }
+  &__options {
+    display: none;
+  }
+}
+#offcanvasNavbar {
+  max-width: 50vw;
+  background-color: $primary;
+}
+#logo {
+  width: 200px;
+}
+.content-dark {
+  a {
+    color: $primaryDark;
+  }
+}
+.dropdown-menu {
+  background-color: $primary !important;
+}
+@media screen and (min-width: 769px) {
+  .navbar {
+    &__logo {
+      width: 100px;
+      #logo {
+        width: 100%;
+        height: auto;
+      }
+    }
+    &__options {
+      display: flex;
+    }
+  }
+}

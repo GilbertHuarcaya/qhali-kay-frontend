@@ -1,0 +1,181 @@
+/* eslint-disable camelcase */
+/* eslint-disable react/prop-types */
+import {
+  Nav,
+  Navbar,
+  Offcanvas,
+  NavDropdown,
+  Form,
+  FormControl,
+  Button,
+} from 'react-bootstrap';
+import { useEffect, useState, useRef } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { registerUser, getUserFromLocalStorage } from '../../store/actions';
+import Slide from '../Slide';
+import logo from '../../images/logo.png';
+import './styles.scss';
+import LoginBtn from '../LoginBtn';
+import LogoutBtn from '../LogoutBtn';
+
+const Navigation = ({ slide, color }) => {
+  const qhaliUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const { user } = useAuth0();
+  const [navBackground, setNavBackground] = useState(false);
+  const navRef = useRef();
+  navRef.current = navBackground;
+  useEffect(() => {
+    const handleScroll = () => {
+      const trasnparent = window.scrollY > 50;
+      if (navRef.current !== trasnparent) {
+        setNavBackground(trasnparent);
+      }
+    };
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const register = async () => {
+      await registerUser(dispatch, user);
+    };
+    if (user !== null) {
+      register();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const autoLoginUser = async () => {
+      await getUserFromLocalStorage(dispatch);
+    };
+    if (qhaliUser === null) {
+      autoLoginUser();
+    }
+  }, []);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  return (
+    <>
+      <Navbar expand="false" fixed="top" className={navBackground ? 'py-0 pr-0' : 'py-0 pr-0 content-dark'} style={{ transition: '1s ease', backgroundColor: navBackground ? color : 'transparent' }}>
+        <Link className="navbar__logo mx-2 text-qhali" to="/">
+          <img src={logo} alt="logo" id="logo" />
+        </Link>
+        <div className="d-flex align-items-center">
+          <div className="navbar__options align-items-center">
+            <NavLink className="nav-link  text-qhali" to="/">
+              Home
+            </NavLink>
+            <NavLink className="nav-link  text-qhali" to="/doctors">
+              Doctors
+            </NavLink>
+            <NavLink className="nav-link  text-qhali" to="/services">
+              Services
+            </NavLink>
+            <NavLink className="nav-link  text-qhali" to="/contact-us">
+              Contact Us
+            </NavLink>
+
+            {qhaliUser ? (
+              <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-qhali bg-warning text-center rounded my-0">
+                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action4">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">
+                  <LogoutBtn />
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              ''
+            )}
+            {!qhaliUser ? <LoginBtn /> : null}
+          </div>
+          <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={toggleShow} className="mx-2" />
+          <Navbar.Offcanvas
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="end"
+            show={show}
+            onHide={handleClose}
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id="offcanvasNavbarLabel">
+                Offcanvas
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav
+                className="justify-content-end flex-grow-1 pe-3"
+                collapseOnSelect
+              >
+                <NavLink className="nav-link mx-2" to="/" onClick={handleClose}>
+                  Home
+                </NavLink>
+                <NavLink
+                  className="nav-link mx-2"
+                  to="/doctors"
+                  onClick={handleClose}
+                >
+                  Doctors
+                </NavLink>
+                <NavLink
+                  className="nav-link mx-2"
+                  to="/services"
+                  onClick={handleClose}
+                >
+                  Services
+                </NavLink>
+                <NavLink
+                  className="nav-link mx-2"
+                  to="/contact-us"
+                  onClick={handleClose}
+                >
+                  Contact Us
+                </NavLink>
+                <NavLink className="nav-link" to="/chat">
+                  Chat
+                </NavLink>
+                <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
+                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action4">
+                    Another action
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action5">
+                    Something else here
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success">Search</Button>
+              </Form>
+              {!user ? <LoginBtn /> : <LogoutBtn />}
+              {user?.photo ? (
+                <img src={user.picture} alt={user.userName} />
+              ) : null}
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </div>
+      </Navbar>
+
+      {slide && <Slide />}
+    </>
+  );
+};
+
+export default Navigation;
