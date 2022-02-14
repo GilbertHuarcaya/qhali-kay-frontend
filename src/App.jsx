@@ -11,7 +11,10 @@ import Doctor from './components/Doctor';
 import Services from './components/Services';
 import ServiceDetails from './components/ServiceDetails';
 import Layout from './pages/Layout';
-import DocChat from './pages/DocChat';
+
+import ListingsPage from './components/Chat/ListingsPage';
+import DetailsPage from './components/Chat/DetailsPage';
+import ChatsPage from './components/Chat/ChatsPage';
 
 const App = () => (
   <BrowserRouter>
@@ -27,7 +30,9 @@ const App = () => (
           <Route path="doctors" element={<Doctor />} />
           <Route path="login" element={<Login />} />
           <Route path="contact-us" element={<Contact />} />
-          <Route path="chat" element={<DocChat />} />
+          <Route path="chat" element={<ListingsPage />} />
+          <Route path="product/:id" element={<DetailsPage />} />
+          <Route path="chats" element={<ChatsPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
