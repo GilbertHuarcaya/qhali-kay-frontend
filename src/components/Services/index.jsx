@@ -7,40 +7,40 @@ const Services = () => {
   const data = [{
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   },
   {
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   }, {
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   },
   {
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   }, {
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   },
   {
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   }, {
     serviceName: 'hola',
     serviceDesc: 'muchos',
-    serviceImage: 'google.com',
+    serviceImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
 
   }];
   const [services] = useState(data);
