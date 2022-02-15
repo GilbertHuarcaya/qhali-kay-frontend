@@ -5,16 +5,18 @@ import { logoutUser } from '../../store/actions';
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
-  const { logout } = useAuth0();
+  const { isAuthenticated, logout } = useAuth0();
   const logoutQhaliUser = (e) => {
     e.preventDefault();
-    logout({ returnTo: window.location.origin });
-
+    if (isAuthenticated) {
+      logout({ returnTo: window.location.origin });
+    }
     logoutUser(dispatch);
   };
   return (
     <button
       type="button"
+      className="btn btn-danger px-3 text-qhali w-100"
       onClick={(e) => logoutQhaliUser(e)}
     >
       Log Out

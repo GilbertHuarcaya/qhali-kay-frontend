@@ -1,17 +1,49 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Services = () => {
-  const [service, setService] = useState([]);
+  const data = [{
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
 
-  useEffect(() => {
-    document.title = 'Services Page';
-    fetch('./services.json')
-      .then((res) => res.json())
-      .then((data) => setService(data))
-      .catch((err) => console.error(err));
-  }, []);
+  },
+  {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }, {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  },
+  {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }, {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  },
+  {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }, {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }];
+  const [services] = useState(data);
 
   return (
     <Container>
@@ -21,22 +53,22 @@ const Services = () => {
           {' '}
           <span className="text-qhali">Services</span>
         </h1>
-        {!service ? (
+        {!services ? (
           <div className="spinner-border text-qhali mx-auto   " role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         ) : (
-          service.map((item, key) => (
-            <Col lg={4} key={`${key + 1}hol`} className="my-3 text-center">
+          services.map((service, index) => (
+            <Col lg={4} key={`${index + 1}service`} className="my-3 text-center">
               <Card className="shadow-effect">
-                <Card.Img variant="top" src={item.serviceImage} />
+                <Card.Img variant="top" src={service.serviceImage} />
                 <Card.Body>
                   <Card.Title className="fw-bold">
-                    {item.serviceName}
+                    {service.serviceName}
                   </Card.Title>
-                  <Card.Text className="text">{item.serviceDesc}</Card.Text>
+                  <Card.Text className="text">{service.serviceDesc}</Card.Text>
                   <Link
-                    to={`/service-details/${item.serviceName}/${item.serviceDesc}`}
+                    to={`/service-details/${service.serviceName}/${service.serviceDesc}`}
                     className="btn btn-qhali text-white fw-bold"
                   >
                     Click For Details

@@ -3,6 +3,7 @@ import { Col, Container, Form, Row } from 'react-bootstrap';
 import swal from 'sweetalert';
 import { Link /* , useHistory, useLocation  */ } from 'react-router-dom';
 import logo from '../../images/logo.png';
+import './styles.scss';
 
 const Login = () => {
   /* const history = useHistory(); */
@@ -57,8 +58,8 @@ const Login = () => {
   document.title = newUser ? 'Create Your account' : 'Login Page';
 
   return (
-    <Container className="mt-5 pt-5">
-      <Row className="w-50 mx-auto">
+    <Container className="d-flex align-items-center login">
+      <Row className="w-100 mx-auto">
         <Col md={12} className="border px-3 py-5">
           <Container className="d-flex justify-content-center">
             <Link to="/">
@@ -131,16 +132,9 @@ const Login = () => {
               </button>
             )}
 
-            <div className="text-center mt-2">
-              <span className="me-2">Create an account?</span>
-              <input
-                type="checkbox"
-                className="my-3"
-                name="newUser"
-                onChange={() => setNewUser(!newUser)}
-              />
-              <span>Sign up</span>
-            </div>
+            <button type="button" className="text-center mt-2" onClick={() => setNewUser(!newUser)}>
+              <span className="me-2">{newUser ? 'login?' : 'Create an account?'}</span>
+            </button>
           </Form>
           <Col md={12} className="mt-3 text-center">
             {!newUser && (

@@ -6,16 +6,16 @@ import logo from '../../images/logo.png';
 const Footer = () => (
   <footer className="container-fluid mt-5 ">
     <Row className="py-5">
-      <Col md={4}>
+      <Col md={4} className=" px-5 d-flex flex-column align-items-center justify-content-center">
         <Link to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
-        <p className="mt-3 lh-base">
+        <p className="mt-3 lh-base text-justify">
           This is the best healthcare service provider in Perú. To get any
           update connect with us.
         </p>
       </Col>
-      <Col md={4} className="px-5">
+      <Col md={4} className="px-5 d-flex flex-column align-items-center justify-content-center">
         <h4 className="fw-bold text-black">QhaliKay</h4>
         <ul className="list-group list-group-flush">
           <li className="btn text-start">Home</li>
@@ -24,7 +24,7 @@ const Footer = () => (
           <li className="btn text-start">Contact us</li>
         </ul>
       </Col>
-      <Col md={4}>
+      <Col md={4} className="px-5 d-flex flex-column align-items-center justify-content-center">
         <h4 className="fw-bold text-black">Subscribe</h4>
         <form>
           <div className="mb-3">

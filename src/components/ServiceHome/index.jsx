@@ -1,19 +1,49 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const ServiceHome = ({ item }) => {
-  const [service, setService] = useState([]);
+  const data = [{
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
 
-  useEffect(() => {
-    fetch('./services.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setService(data.slice(0, item));
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  },
+  {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }, {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  },
+  {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }, {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  },
+  {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }, {
+    serviceName: 'hola',
+    serviceDesc: 'muchos',
+    serviceImage: 'google.com',
+
+  }];
+  const [services] = useState(data.slice(0, item));
 
   return (
     <Container>
@@ -23,13 +53,13 @@ const ServiceHome = ({ item }) => {
           {' '}
           <span className="text-qhali">Services</span>
         </h1>
-        {!service ? (
+        {!services ? (
           <div className="spinner-border text-qhali mx-auto   " role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         ) : (
-          service.map((i, key) => (
-            <Col lg={4} key={`${key + 1}hola`} className="my-3 text-center">
+          services.map((i, index) => (
+            <Col lg={4} key={`${index + 1}hola`} className="my-3 text-center">
               <Card className="shadow-effect">
                 <Card.Img variant="top" src={i.serviceImage} />
                 <Card.Body>

@@ -4,20 +4,20 @@ import { Card, Col, Container, Row, Button } from 'react-bootstrap';
 const Procedure = () => {
   const procedure = [
     {
-      title: 'Search Best Online Professional',
-      des: 'Search on your browser and Login',
+      title: 'Search Best Medical Center Near You',
+      des: 'Search on Medical Centers Page and Login',
       step: 1,
       key: 12,
     },
     {
-      title: 'Get Instant Appointment',
-      des: 'Take appoinment from our website and meet the doctor.',
+      title: 'Get Instant Response',
+      des: 'If you need an appoinment, start a chat from our website with the Medical Canter.',
       step: 2,
       key: 13,
     },
     {
       title: 'Leave Your Feedback',
-      des: 'After taking services please give us feedback.',
+      des: 'After completing appointments please give us feedback.',
       step: 3,
       key: 14,
     },
@@ -31,12 +31,12 @@ const Procedure = () => {
       </h1>
       <Row>
         {procedure.map((step) => (
-          <Col md={12} key={step.key}>
+          <Col md={12} lg={4} key={step.key}>
             <Card className="my-2">
-              <Card.Body>
+              <Card.Body className="text-center">
                 <Card.Title className="fw-bold">{step.title}</Card.Title>
                 <Card.Text>{step.des}</Card.Text>
-                <Button className="btn-qhali text-white">
+                <Button className="btn-qhali text-white text-center">
                   Step
                   {' '}
                   {step.step}

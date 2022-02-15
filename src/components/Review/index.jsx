@@ -6,13 +6,9 @@ const Review = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('./review.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setReview(data);
-        setLoading(false);
-      })
-      .catch((err) => console.error(err));
+    const data = [{ userName: 'gilbert', userImage: 'google.com', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'google.com', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'google.com', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }];
+    setReview(data);
+    setLoading(false);
   }, []);
 
   return (
@@ -33,13 +29,13 @@ const Review = () => {
               <Carousel.Item
                 Id="testimonial-carousel-item"
                 key={el.userId}
-                interval={1500}
+                interval={2500}
               >
                 <Carousel.Caption>
                   <img
                     className="d-block w-25 mx-auto rounded"
                     src={el.userImage}
-                    alt="First slide"
+                    alt={el.userName}
                   />
                   <h3 className="text-dark fw-bold py-2">{el.userName}</h3>
                   <p className="text-dark">{el.body}</p>

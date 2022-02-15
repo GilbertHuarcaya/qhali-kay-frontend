@@ -5,11 +5,11 @@ import errorPage from '../../images/404.jpg';
 import Footer from '../Footer';
 
 const NotFound = () => (
-  <div>
-    <Navigation slide={false} color="" />
-    <Container>
+  <div className=" d-flex flex-column justify-content-between" style={{ 'min-height': '100vh' }}>
+    <Navigation slide={false} />
+    <Container className=" h-100 mx-auto d-flex align-items-center justify-content-center" style={{ 'flex-grow': '1' }}>
       <Row>
-        <Col className="mx-auto" md={5}>
+        <Col className=" mx-auto " md={9}>
           <img className="img-fluid" src={errorPage} alt="Error Page" />
         </Col>
       </Row>
