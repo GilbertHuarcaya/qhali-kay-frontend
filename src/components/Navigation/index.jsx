@@ -141,10 +141,10 @@ const Navigation = ({ slide, color }) => {
                 >
                   Contact Us
                 </NavLink>
-                <NavLink className="nav-link" to="/chat">
+                <NavLink className="nav-link mx-2" to="/chat">
                   Chat
                 </NavLink>
-                <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
+                <NavDropdown title="Dropdown" className="nav-link mx-2" id="offcanvasNavbarDropdown">
                   <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action4">
                     Another action

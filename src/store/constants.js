@@ -29,3 +29,4 @@ export const POST_CUSTOMER_TOKEN = 'post-customer-token';
 export const POST_PAYMENT = 'post-payment';
 export const GET_ROLE_PERSONAL = 'GET_ROLE_PERSONAL';
 export const POST_POSTULA_PERSONAL = 'post-postula-personal';
+export const GET_GOOGLE_HOSPITALS = 'get-google-hospitals';

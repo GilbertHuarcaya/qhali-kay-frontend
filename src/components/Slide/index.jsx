@@ -15,13 +15,9 @@ const Slide = () => (
       />
       <div className="carousel-background" />
       <Carousel.Caption className="nav-carousel-caption">
-        <h4 className=" fw-bolder">QHALIKAY</h4>
-        <h1 className="display-2 fw-bolder">
-          Encuentra El Mejor Centro
-          {' '}
-          <br />
-          {' '}
-          Médico Cerca De Ti
+        <h4 className=" fw-bolder text-light">QHALIKAY</h4>
+        <h1 className="display-2 fw-bolder text-light">
+          Find the best Medical Center near you
         </h1>
       </Carousel.Caption>
     </Carousel.Item>
@@ -33,13 +29,9 @@ const Slide = () => (
       />
       <div className="carousel-background" />
       <Carousel.Caption className="nav-carousel-caption">
-        <h4 className=" fw-bolder">QHALIKAY</h4>
-        <h1 className="display-2 fw-bolder">
-          Encuentra El Mejor Centro
-          {' '}
-          <br />
-          {' '}
-          Médico Cerca De Ti
+        <h4 className=" fw-bolder text-light">QHALIKAY</h4>
+        <h1 className="display-2 fw-bolder text-light">
+          Find the best Medical Center near you
         </h1>
       </Carousel.Caption>
     </Carousel.Item>
@@ -51,13 +43,9 @@ const Slide = () => (
       />
       <div className="carousel-background" />
       <Carousel.Caption className="nav-carousel-caption">
-        <h4 className=" fw-bolder">QHALIKAY</h4>
-        <h1 className="display-2 fw-bolder">
-          Encuentra El Mejor Centro
-          {' '}
-          <br />
-          {' '}
-          Médico Cerca De Ti
+        <h4 className=" fw-bolder text-light">QHALIKAY</h4>
+        <h1 className="display-2 fw-bolder text-light">
+          Find the best Medical Center near you
         </h1>
       </Carousel.Caption>
     </Carousel.Item>

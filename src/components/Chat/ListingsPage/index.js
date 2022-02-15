@@ -35,7 +35,7 @@ const ListingsPage = () => {
               cover={(
                 <img
                   alt="example"
-                  src={seller.custom_json.photos[0]}
+                  src={seller.custom_json.icon ? seller.custom_json.icon : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
                   style={{ width: '100%', height: '320px', objectFit: 'cover' }}
                 />
                                   )}

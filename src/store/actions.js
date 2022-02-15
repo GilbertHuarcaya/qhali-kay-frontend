@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-debugger */
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
@@ -26,6 +27,7 @@ import {
   GET_ROLE_PERSONAL,
   ASIGN_PERSONAL_TO_ORDER,
   POST_POSTULA_PERSONAL,
+  GET_GOOGLE_HOSPITALS,
 } from './constants';
 
 import authService from '../services/auth';
@@ -34,6 +36,23 @@ import orderService from '../services/order';
 import uploadService from '../services/upload';
 import userService from '../services/user';
 import orderPayment from '../services/payment';
+
+export const getHospitalsFromGoogle = async (location, dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await userService.getNearHospitals(location);
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_GOOGLE_HOSPITALS, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
 
 export const postUserCardToken = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });

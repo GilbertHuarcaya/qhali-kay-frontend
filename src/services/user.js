@@ -62,11 +62,26 @@ const getAllRolePersonalService = () => {
   return fetch(`${URL_BASE}/api/users/personalclens`, payload);
 };
 
+export const getNearHospitals = (data) => {
+  const accessTokenObj = localStorage.getItem('token');
+
+  const payload = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+  };
+
+  return fetch(`${URL_BASE}/api/users/${data.lat},${data.lng}`, payload);
+};
+
 const user = {
   patchUser,
   sendUserEmail,
   getAllRolePersonalService,
   postulaPersonal,
+  getNearHospitals,
   // forgotPassword,
 };
 

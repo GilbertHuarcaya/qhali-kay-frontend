@@ -21,6 +21,7 @@ import {
   POST_PAYMENT,
   GET_ROLE_PERSONAL,
   POST_POSTULA_PERSONAL,
+  GET_GOOGLE_HOSPITALS,
 } from './constants';
 
 const initialState = {
@@ -42,6 +43,7 @@ const initialState = {
   allOrders: [],
   rolePersonal: [],
   postulaInfo: [],
+  hospitals: [],
 };
 
 function reducer(state = initialState, action = '') {
@@ -175,6 +177,12 @@ function reducer(state = initialState, action = '') {
         ...state,
         rolePersonal: newValue,
       };
+    case GET_GOOGLE_HOSPITALS:
+      return {
+        ...state,
+        hospitals: newValue,
+      };
+
     default:
       return state;
   }

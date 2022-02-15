@@ -6,7 +6,7 @@ import logo from '../../images/logo.png';
 const Footer = () => (
   <footer className="container-fluid mt-5 ">
     <Row className="py-5">
-      <Col md={3}>
+      <Col md={4}>
         <Link to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
@@ -15,8 +15,8 @@ const Footer = () => (
           update connect with us.
         </p>
       </Col>
-      <Col md={3} className="px-5">
-        <h4 className="fw-bold text-black">Useful Links</h4>
+      <Col md={4} className="px-5">
+        <h4 className="fw-bold text-black">QhaliKay</h4>
         <ul className="list-group list-group-flush">
           <li className="btn text-start">Home</li>
           <li className="btn text-start">Doctors</li>
@@ -24,7 +24,7 @@ const Footer = () => (
           <li className="btn text-start">Contact us</li>
         </ul>
       </Col>
-      <Col md={3}>
+      <Col md={4}>
         <h4 className="fw-bold text-black">Subscribe</h4>
         <form>
           <div className="mb-3">
@@ -45,7 +45,6 @@ const Footer = () => (
           </button>
         </form>
       </Col>
-      <Col md={3} />
     </Row>
     <p className="text-center mb-0">&copy; 2022 Copyright: QhaliKay - Gilbert Huarcaya</p>
   </footer>
