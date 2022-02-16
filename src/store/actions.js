@@ -35,12 +35,13 @@ import reviewService from '../services/review';
 import orderService from '../services/order';
 import uploadService from '../services/upload';
 import userService from '../services/user';
+import hospitalService from '../services/hospital';
 import orderPayment from '../services/payment';
 
 export const getHospitalsFromGoogle = async (location, dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await userService.getNearHospitals(location);
+    const response = await hospitalService.getNearHospitals(location);
     const data = await response.json();
 
     if (response.ok) {
@@ -165,7 +166,6 @@ export const registerUser = async (dispatch, newUser) => {
       const decoded = jwt_decode(data.token);
       dispatch({ type: LOGIN_USER, payload: decoded });
     }
-    console.log(data);
     return data;
   } catch (error) {
     // eslint-disable-next-line no-console

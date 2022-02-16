@@ -10,14 +10,14 @@ const slides = [{ slide: slide1, info: 'Find the best Medical Center near you' }
 const Slide = () => (
   <Carousel interval={3000} className="nav-carousel ">
     {slides.map((slide) => (
-      <Carousel.Item className="bannerCarousel">
+      <Carousel.Item className="bannerCarousel" key={Math.random()}>
         <div
           className="carouselImage"
           style={{
             background: `url(${slide.slide})`,
-            'background-repeat': 'no-repeat',
-            'background-size': 'cover',
-            'background-position': 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
         <div className="carousel-background" />

@@ -15,6 +15,9 @@ import Layout from './pages/Layout';
 import ListingsPage from './components/Chat/ListingsPage';
 import DetailsPage from './components/Chat/DetailsPage';
 import ChatsPage from './components/Chat/ChatsPage';
+import Profile from './components/Profile';
+import MiPerfil from './components/Profile/MiPerfil';
+import NewPassword from './components/Profile/ChangePassword';
 
 const App = () => (
   <BrowserRouter>
@@ -27,6 +30,10 @@ const App = () => (
             path="/service-details/:name/:description/"
             element={<ServiceDetails />}
           />
+          <Route path="profile" element={<Profile />}>
+            <Route path="" element={<MiPerfil />} />
+            <Route path="change-password" element={<NewPassword />} />
+          </Route>
           <Route path="doctors" element={<Doctor />} />
           <Route path="contact-us" element={<Contact />} />
           <Route path="chat" element={<ListingsPage />} />

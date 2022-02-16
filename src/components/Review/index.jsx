@@ -6,7 +6,7 @@ const Review = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const data = [{ userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }];
+    const data = [{ userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '122', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '124', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }];
     setReview(data);
     setLoading(false);
   }, []);
@@ -27,7 +27,7 @@ const Review = () => {
           ) : (
             review.map((el) => (
               <Carousel.Item
-                Id="testimonial-carousel-item"
+                id="testimonial-carousel-item"
                 key={el.userId}
                 interval={2500}
               >

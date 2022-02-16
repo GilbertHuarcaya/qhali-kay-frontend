@@ -17,7 +17,7 @@ const ListingsPage = () => {
       setParsedUsers(users.map((e) => ({ ...e, custom_json: JSON.parse(e.custom_json) })));
     }
   }, [users]);
-  console.log(parsedUsers);
+
   function renderSellers() {
     return parsedUsers.map((seller, index) => (
       <Col
@@ -31,7 +31,7 @@ const ListingsPage = () => {
           <a href={`/product/${seller.id}`}>
             <Card
               hoverable
-              style={{ 'max-width': '100%' }}
+              style={{ maxWidth: '100%' }}
               cover={(
                 <img
                   alt="example"

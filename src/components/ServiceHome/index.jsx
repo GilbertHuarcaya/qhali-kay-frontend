@@ -59,7 +59,7 @@ const ServiceHome = ({ item }) => {
           </div>
         ) : (
           services.map((i, index) => (
-            <Col lg={4} key={`${index + 1}hola`} className="my-3 text-center">
+            <Col xs={6} sm={4} lg={4} key={`${index + 1}hola`} className="my-3 text-center">
               <Card className="shadow-effect">
                 <Card.Img variant="top" src={i.serviceImage} />
                 <Card.Body>
@@ -78,12 +78,14 @@ const ServiceHome = ({ item }) => {
         )}
       </Row>
       <Row>
-        <Link
-          className="w-25 mx-auto btn btn-qhali fw-bold text-white"
-          to="/services"
-        >
-          See more services
-        </Link>
+        <Col className="text-center">
+          <Link
+            className="mx-auto btn btn-qhali fw-bold text-white"
+            to="/services"
+          >
+            See more services
+          </Link>
+        </Col>
       </Row>
     </Container>
   );

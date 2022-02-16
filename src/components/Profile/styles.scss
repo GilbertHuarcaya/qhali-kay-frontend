@@ -1,0 +1,274 @@
+/* Card con info de usuario*/
+@import "/src/custom.scss";
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-profile {
+    width: 100%;
+  }
+  &-principal {
+    background-color: $primary !important;
+    width: 100%;
+    h1 {
+      color: white;
+    }
+  }
+
+  &--desktop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__user-img {
+    width: 7rem;
+    height: 7rem;
+    top: 2rem;
+    right: 2rem;
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #77c6ca;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+  }
+
+  &__form {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    padding: 2rem;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+
+    &__close {
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      right: 2rem;
+      cursor: pointer;
+    }
+    &__change-photo {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100vh; /* Full height */
+      background-color: rgb(0, 0, 0); /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      form {
+        margin: 25vh auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 40rem;
+        border-radius: 10px;
+      }
+      h4 {
+        margin-top: 1rem;
+      }
+    }
+
+    &__group {
+      margin: 15px 0 0 0;
+      position: relative;
+    }
+
+    &__titulo {
+      margin-bottom: 0.5rem;
+      color: #929292;
+    }
+    &__link {
+      text-align: center;
+      margin: 2rem 0 1rem 0;
+
+      a {
+        text-decoration: none;
+        color: #929292;
+      }
+      a:hover {
+        text-decoration: none;
+        color: black;
+      }
+    }
+
+    &__input {
+      border: 0;
+      border-bottom: 1px solid gray;
+      padding: 0 10px 5px 0;
+      width: 100%;
+    }
+
+    &__h2 {
+      margin: 30px 0 10px 0;
+    }
+
+    &__h4 {
+      margin: 40px 5px 0 5px;
+    }
+
+    &__h5 {
+      margin: 5px 0 5px 0;
+    }
+
+    &__btn {
+      margin: auto;
+      margin-top: 30px;
+      width: 120px;
+      height: 50px;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      border-style: solid;
+    }
+
+    &__btn:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.is-active-change-photo {
+  display: block;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  max-height: 100vh; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.info__img {
+  display: none;
+}
+#file {
+  padding-right: 4rem;
+}
+.i-btn {
+  color: green;
+  background-color: transparent;
+  margin-left: -1px;
+  border: none;
+  position: absolute;
+  cursor: pointer;
+  animation: grow-animation 2s linear infinite;
+}
+.i-btn:disabled {
+  margin-left: -1px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  animation: none;
+  svg {
+    cursor: not-allowed;
+  }
+}
+.password-btn {
+  margin-left: -25px;
+  border: none;
+  cursor: pointer;
+}
+.fa-eye,
+.fa-image {
+  color: #929292;
+}
+
+#old-password,
+#new-password {
+  padding-right: 3rem;
+}
+
+@media screen and (min-width: 769px) {
+  .card--desktop {
+    margin: 20px 0 20px 0;
+    padding: 1rem;
+  }
+  .card-principal {
+    background-color: $primary !important;
+    max-width: 10rem !important;
+  }
+  .card-profile {
+    width: 60vw;
+    max-width: 25rem;
+  }
+  .card__form {
+    &__change-photo {
+      form {
+        margin: 30vh auto;
+      }
+    }
+  }
+
+  .info__img {
+    border-radius: 0 20px 20px 0;
+    display: inline-block;
+    width: 40rem;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .card__user-img {
+    width: 10vw;
+    height: 10vw;
+    max-width: 10rem;
+    max-height: 10rem;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+  }
+  .card--desktop {
+    margin-left: 20px;
+  }
+  .card-profile {
+    width: 90vw;
+    max-width: 30em;
+  }
+
+  .card__form {
+    width: 55vw;
+    max-width: 600px;
+    padding: 4rem;
+
+    &__btn {
+      width: 210px;
+      height: 80px;
+    }
+  }
+
+  .info__img {
+    margin-right: 20px;
+  }
+  .password-btn {
+    margin-left: -25px;
+    border: none;
+    cursor: pointer;
+  }
+  .i-btn {
+    margin-left: -10px;
+    border: none;
+    cursor: pointer;
+  }
+}

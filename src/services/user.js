@@ -73,7 +73,7 @@ export const getNearHospitals = (data) => {
     },
   };
 
-  return fetch(`${URL_BASE}/api/users/${data.lat},${data.lng}`, payload);
+  return fetch(`${URL_BASE}/api/hospitals/search/${data.lat},${data.lng}`, payload);
 };
 
 const user = {

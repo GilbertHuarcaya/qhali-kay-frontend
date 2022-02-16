@@ -1,52 +1,117 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import React, { useState } from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { AdvancedImage } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { Col, Row } from 'react-bootstrap';
+import { postUploadFile } from '../../store/actions';
+
+import './styles.scss';
+import Loader from '../Loader';
+
+const CLOUD = process.env.REACT_APP_CLOUD_NAME;
 
 const Profile = () => {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const [userMetadata, setUserMetadata] = useState(null);
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = 'dev-o8t9fu33.us.auth0.com';
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const [toggleClassBtnUser, setToggleCLassBtnUser] = useState('false');
+  const [file, setFile] = useState(null);
+  const [blocked, setBlocked] = useState(true);
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: CLOUD,
+    },
+  });
 
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: 'read:current_user',
-        });
+  const onChangeFile = (e) => {
+    setFile(e.target.files[0]);
 
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+    setBlocked(!true);
+  };
 
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        const { newUserMetadata } = await metadataResponse.json();
-
-        setUserMetadata(newUserMetadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
-
+  const handlerUserPhoto = () => {
+    if (!toggleClassBtnUser) {
+      return setToggleCLassBtnUser(true);
+    }
+    return setToggleCLassBtnUser(false);
+  };
+  const onSubmitFoto = async (e) => {
+    e.preventDefault();
+    await postUploadFile(dispatch, file, user);
+    handlerUserPhoto();
+  };
   return (
-    isAuthenticated && (
-      <div>
-        <img src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-        <h3>User Metadata</h3>
-        {userMetadata ? (
-          <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-        ) : (
-          'No user metadata defined'
-        )}
+    <div className="card--desktop">
+      <Row className="w-100">
+        <Col sm={3} md={4} className="d-flex flex-column align-items-end px-0">
+          <div className="card card-principal h-100 justify-content-start">
+            <h1 className="card__form__h2">Profile</h1>
+            <button
+              type="button"
+              className="card__user-img"
+              onClick={handlerUserPhoto}
+            >
+              {user ? <AdvancedImage cldImg={cld.image(user.photo.id || 'cld-sample')} /> : <Loader />}
+            </button>
+            <Row className="d-flex align-items-center justify-content-center">
+              <Col><Link to="/profile" className="nav-link text-center">Personal</Link></Col>
+              <Col>
+                <Link to="/profile/change-password" className="nav-link text-center">
+                  Password
+                </Link>
+              </Col>
+            </Row>
+          </div>
+        </Col>
+        <Col sm={9} md={6} className="d-flex flex-column align-items-left justify-content-center px-0">{user ? <Outlet /> : <Loader />}</Col>
+      </Row>
+
+      <div
+        className={
+          toggleClassBtnUser
+            ? 'card__form__change-photo'
+            : 'card__form__change-photo is-active-change-photo'
+        }
+        id="menu-perfil"
+      >
+        <form className="card__form">
+          <h4 className="card__form__h4">Cambie su foto</h4>
+          <button
+            type="button"
+            className="card__form__close"
+            onClick={handlerUserPhoto}
+          >
+            &times;
+          </button>
+          <div className="card__form__group">
+            <p className="card__form__titulo">Foto</p>
+            <input
+              type="file"
+              name="file"
+              id="file"
+              onChange={onChangeFile}
+              accept="image/*"
+              className="card__form__input"
+            />
+            <button
+              className="i-btn"
+              type="submit"
+              tabIndex="0"
+              disabled={blocked}
+            >
+              {blocked ? null : '✔'}
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={onSubmitFoto}
+            className="card__form__btn"
+          >
+            Actualizar
+          </button>
+        </form>
       </div>
-    )
+    </div>
   );
 };
 

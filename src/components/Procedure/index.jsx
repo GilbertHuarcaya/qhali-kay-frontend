@@ -33,7 +33,7 @@ const Procedure = () => {
         {procedure.map((step) => (
           <Col md={12} lg={4} key={step.key}>
             <Card className="my-2">
-              <Card.Body className="text-center">
+              <Card.Body className="text-center w-100">
                 <Card.Title className="fw-bold">{step.title}</Card.Title>
                 <Card.Text>{step.des}</Card.Text>
                 <Button className="btn-qhali text-white text-center">

@@ -45,7 +45,8 @@ const Navigation = ({ slide, color }) => {
     const register = async () => {
       await registerUser(dispatch, user);
     };
-    if (user !== null) {
+    if (user !== undefined) {
+      console.log(user);
       register();
     }
   }, [user]);
@@ -84,11 +85,10 @@ const Navigation = ({ slide, color }) => {
             </NavLink>
 
             {qhaliUser ? (
-              <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-qhali bg-warning text-center rounded my-0">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
+              <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-qhali text-center rounded my-0">
+                <NavLink className="nav-link mx-2" to="/profile">
+                  Profile
+                </NavLink>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
                   <LogoutBtn />
@@ -144,27 +144,29 @@ const Navigation = ({ slide, color }) => {
                 <NavLink className="nav-link mx-2" to="/chat">
                   Chat
                 </NavLink>
-                <NavDropdown title="Dropdown" className="nav-link mx-2" id="offcanvasNavbarDropdown">
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <Form className="d-flex">
+                  <FormControl
+                    type="search"
+                    placeholder="Search"
+                    className="me-2 m-0 p-0"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success">Search</Button>
+                </Form>
+                {qhaliUser ? (
+                  <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-qhali text-center rounded my-0">
+                    <NavLink className="nav-link mx-2" to="/profile">
+                      Profile
+                    </NavLink>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action5">
+                      <LogoutBtn />
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  ''
+                )}
               </Nav>
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
-              {!user ? <LoginBtn /> : <LogoutBtn />}
               {user?.photo ? (
                 <img src={user.picture} alt={user.userName} />
               ) : null}
