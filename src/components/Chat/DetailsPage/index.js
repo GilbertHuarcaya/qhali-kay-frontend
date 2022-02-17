@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
 /* eslint-disable radix */
@@ -47,7 +48,7 @@ const DetailsPage = () => {
                 {currentHospital.custom_json.vicinity}
               </h5>
               <p style={{ maxWidth: '325px' }}>{currentHospital.custom_json.vicinity}</p>
-              <Link to="/chat">
+              <Link to="/near-med-center">
                 <button type="button" style={{ padding: '11px' }}>
                   Back
                 </button>

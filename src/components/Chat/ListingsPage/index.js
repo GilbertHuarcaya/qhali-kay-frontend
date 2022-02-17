@@ -20,10 +20,10 @@ const ListingsPage = () => {
     if (existingHospital === undefined) {
       const newHospital = await createChatHospital(value, dispatch);
 
-      return navigate(`/product/${newHospital.id}`);
+      return navigate(`/med-center/${newHospital.id}`);
     }
     await setCurrentHospital(existingHospital, dispatch);
-    return navigate(`/product/${existingHospital.id}`);
+    return navigate(`/med-center/${existingHospital.id}`);
   };
 
   function renderhospitals() {

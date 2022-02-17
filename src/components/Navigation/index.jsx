@@ -90,7 +90,6 @@ const Navigation = ({ slide, color }) => {
       await registerUser(dispatch, user);
     };
     if (user !== undefined) {
-      console.log(user);
       register();
     }
   }, [user]);
@@ -109,7 +108,7 @@ const Navigation = ({ slide, color }) => {
 
   return (
     <>
-      <Navbar expand="false" fixed="top" className={navBackground ? 'py-0 pr-0' : 'py-0 pr-0 content-dark'} style={{ zIndex: location.pathname === '/chats' || location.pathname.split('/').includes('product') ? '1' : '999', transition: '1s ease', backgroundColor: navBackground ? color : 'transparent' }}>
+      <Navbar expand="false" fixed="top" className={navBackground ? 'py-0 pr-0' : 'py-0 pr-0 content-dark'} style={{ zIndex: location.pathname === '/chats' || location.pathname.split('/').includes('med-center') ? '1' : '999', transition: '1s ease', backgroundColor: navBackground ? color : 'transparent' }}>
         <Link className="navbar__logo mx-2 text-qhali" to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
