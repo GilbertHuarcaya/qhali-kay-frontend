@@ -59,7 +59,7 @@ const ServiceHome = ({ item }) => {
           </div>
         ) : (
           services.map((i, index) => (
-            <Col xs={6} sm={4} lg={4} key={`${index + 1}hola`} className="my-3 text-center">
+            <Col xs={6} sm={4} lg={3} key={`${index + 1}hola`} className="my-3 text-center">
               <Card className="shadow-effect">
                 <Card.Img variant="top" src={i.serviceImage} />
                 <Card.Body>

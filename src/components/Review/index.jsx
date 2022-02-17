@@ -13,7 +13,7 @@ const Review = () => {
 
   return (
     <Container>
-      <Row>
+      <Row style={{ minHeight: '10rem' }}>
         <h1 className="text-center py-5 fw-bold">
           <span className="text-qhali">Clients</span>
           {' '}
@@ -33,7 +33,7 @@ const Review = () => {
               >
                 <Carousel.Caption>
                   <img
-                    className="d-block w-25 mx-auto rounded"
+                    className=" review__image m-auto mt-5 rounded-circle z-index-2"
                     src={el.userImage}
                     alt={el.userName}
                   />

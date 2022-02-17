@@ -114,9 +114,9 @@ const Navigation = ({ slide, color }) => {
         </Link>
         <div className="d-flex align-items-center">
           <div className="navbar__options align-items-center">
-            <NavLink className="nav-link  text-qhali" to="/">
+            {/* <NavLink className="nav-link  text-qhali" to="/">
               Home
-            </NavLink>
+            </NavLink> */}
             <NavLink className="nav-link  text-qhali" to="/doctors">
               Doctors
             </NavLink>
@@ -129,14 +129,28 @@ const Navigation = ({ slide, color }) => {
             <NavLink className="nav-link  text-qhali" to="/near-med-center">
               Near Hospitals
             </NavLink>
-            <NavLink className="nav-link  text-qhali" to="/chats">
-              Chats
-            </NavLink>
-
-            {qhaliUser ? (
-              <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-qhali text-center rounded my-0">
+            {qhaliUser?.hospitalName ? (
+              <NavLink className="nav-link  text-qhali" to="/chats">
+                Chats
+              </NavLink>
+            ) : null}
+            {qhaliUser?.userName ? (
+              <NavDropdown title={qhaliUser.userName.length > 8 ? `${qhaliUser.userName.slice(0, 8)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                 <NavLink className="nav-link mx-2" to="/profile">
                   Profile
+                </NavLink>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">
+                  <LogoutBtn />
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              ''
+            )}
+            {qhaliUser?.hospitalName ? (
+              <NavDropdown title={qhaliUser.hospitalName.length > 8 ? `${qhaliUser.hospitalName.slice(0, 8)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+                <NavLink className="nav-link mx-2" to="/profile">
+                  Med Profile
                 </NavLink>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
@@ -157,9 +171,10 @@ const Navigation = ({ slide, color }) => {
             onHide={handleClose}
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel">
-                Offcanvas
-              </Offcanvas.Title>
+
+              <Link className="navbar__logo mx-2 text-qhali" to="/">
+                <img src={logo} alt="logo" id="logo" />
+              </Link>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav
@@ -202,14 +217,28 @@ const Navigation = ({ slide, color }) => {
                   />
                   <Button variant="outline-success">Search</Button>
                 </Form>
+                <br />
                 {!qhaliUser ? <LoginBtn /> : null}
-                {qhaliUser ? (
-                  <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-qhali text-center rounded my-0">
-                    <NavLink className="nav-link mx-2" to="/profile" onClick={handleClose}>
+                {qhaliUser?.userName ? (
+                  <NavDropdown title={qhaliUser.userName.length > 8 ? `${qhaliUser.userName.slice(0, 8)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+                    <NavLink className="nav-link mx-2" to="/profile">
                       Profile
                     </NavLink>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5" onClick={handleClose}>
+                    <NavDropdown.Item href="#action5">
+                      <LogoutBtn />
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  ''
+                )}
+                {qhaliUser?.hospitalName ? (
+                  <NavDropdown title={qhaliUser.hospitalName.length > 8 ? `${qhaliUser.hospitalName.slice(0, 8)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+                    <NavLink className="nav-link mx-2" to="/profile">
+                      Med Profile
+                    </NavLink>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action5">
                       <LogoutBtn />
                     </NavDropdown.Item>
                   </NavDropdown>

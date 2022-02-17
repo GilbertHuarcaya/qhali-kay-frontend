@@ -13,6 +13,12 @@ footer {
 .btn-qhali {
   background-color: $primary !important;
 }
+.btn-auth {
+  background-color: $success !important;
+}
+.bg-auth {
+  background-color: $success !important;
+}
 .bg-qhali {
   background-color: $primary !important;
 }
@@ -22,9 +28,14 @@ footer {
 .ce-chat-feed-container {
   max-height: 90vh !important;
 }
-
+.navbar-toggler {
+  background-color: $primary !important;
+}
 .shadow-effect {
   position: relative;
+}
+.review__image {
+  height: 8rem;
 }
 .shadow-effect:before,
 .shadow-effect:after {
@@ -99,11 +110,14 @@ nav {
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
 }
 
-@media only screen and (max-width: 768px) {
+@media (min-width: 769px) {
   .nav-carousel {
     margin-top: 0px;
   }
   nav {
     z-index: 2;
+  }
+  .review__image {
+    height: 10rem;
   }
 }

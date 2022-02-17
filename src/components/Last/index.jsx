@@ -3,17 +3,17 @@ import React from 'react';
 const Last = () => (
   <div className="container-fluid bg-black">
     <section className="row justify-content-between py-2 my-bg-color">
-      <div className="col-md-6 d-flex text-qhali">
+      <div className="col-7 d-flex text-qhali">
         <div>
           <i className="bi bi-envelope" />
-          <small className="mx-2">QHALIKAYPERU</small>
+          <small className="mx-2">@qhalikay</small>
         </div>
         <div>
           <i className="bi bi-geo-alt" />
           <small className="mx-2">Lima, Perú</small>
         </div>
       </div>
-      <div className="col-md-6">
+      <div className="col-5">
         <span className="mx-2 text-qhali float-end">
           <i className="bi bi-facebook" />
         </span>

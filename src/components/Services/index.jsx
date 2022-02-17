@@ -59,7 +59,7 @@ const Services = () => {
           </div>
         ) : (
           services.map((service, index) => (
-            <Col lg={4} key={`${index + 1}service`} className="my-3 text-center">
+            <Col xs={6} sm={4} lg={3} key={`${index + 1}service`} className="my-3 text-center">
               <Card className="shadow-effect">
                 <Card.Img variant="top" src={service.serviceImage} />
                 <Card.Body>
