@@ -8,6 +8,7 @@ import { Row, Col } from 'react-grid-system';
 import { Link } from 'react-router-dom';
 import { deleteUser } from '../Navbar/deleteUser';
 import Chat from './Chat';
+import LoginBtn from '../../LoginBtn';
 
 const DetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ const DetailsPage = () => {
   const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-    console.log('ok');
+    console.log('Chat created');
     return () => {
       deleteUser(currentHospital.id);
     };
@@ -53,8 +54,9 @@ const DetailsPage = () => {
                   Back
                 </button>
               </Link>
-              {
-                currentHospital.username !== currentUser.username
+              {currentUser
+                ? (
+                  currentHospital.username !== currentUser.username
                 && (
                 <button
                   type="button"
@@ -66,17 +68,19 @@ const DetailsPage = () => {
                   Chat with me!
                 </button>
                 )
-              }
+                ) : <LoginBtn />}
             </div>
           </Col>
-          {
+          {currentUser
+            ? (
               isOpen
               && (
               <Col xs={12} md={6} className="p-0" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
                 <Chat seller={currentHospital} />
               </Col>
               )
-          }
+            )
+            : null}
         </Row>
         )}
     </div>

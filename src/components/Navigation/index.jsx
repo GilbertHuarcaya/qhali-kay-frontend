@@ -202,13 +202,14 @@ const Navigation = ({ slide, color }) => {
                   />
                   <Button variant="outline-success">Search</Button>
                 </Form>
+                {!qhaliUser ? <LoginBtn /> : null}
                 {qhaliUser ? (
                   <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-qhali text-center rounded my-0">
-                    <NavLink className="nav-link mx-2" to="/profile">
+                    <NavLink className="nav-link mx-2" to="/profile" onClick={handleClose}>
                       Profile
                     </NavLink>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
+                    <NavDropdown.Item href="#action5" onClick={handleClose}>
                       <LogoutBtn />
                     </NavDropdown.Item>
                   </NavDropdown>
