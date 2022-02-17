@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import {
@@ -10,10 +11,10 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useEffect, useState, useRef } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerUser, getUserFromLocalStorage } from '../../store/actions';
+import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser } from '../../store/actions';
 import Slide from '../Slide';
 import logo from '../../images/logo.png';
 import './styles.scss';
@@ -21,6 +22,7 @@ import LoginBtn from '../LoginBtn';
 import LogoutBtn from '../LogoutBtn';
 
 const Navigation = ({ slide, color }) => {
+  const location = useLocation();
   const qhaliUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -28,6 +30,69 @@ const Navigation = ({ slide, color }) => {
   const [navBackground, setNavBackground] = useState(false);
   const navRef = useRef();
   navRef.current = navBackground;
+  const hospitals = useSelector((state) => state.hospitals);
+  const currentUsers = useSelector((state) => state.currentUsers);
+  const currentUser = useSelector((state) => state.currentUser);
+
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
+
+  useEffect(() => {
+    const getCoords = async () => {
+      await navigator.geolocation.getCurrentPosition((position) => {
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      });
+    };
+    getCoords();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (lat && lng && hospitals.length === 0) {
+        getHospitalsFromGoogle({ lat, lng }, dispatch);
+      }
+    };
+    fetchData();
+  }, [lat, lng]);
+
+  /*   const syncUsers = () => {
+    getUsers(async (users) => {
+      console.log('Fetched users', users.map((e) => ({ ...e, custom_json: JSON.parse(e.custom_json) })));
+
+      setUsers(users);
+      const existingUser = users.find((u) => qhaliUser.userName === u.username);
+      if (!existingUser) {
+        const currentUser = await createUser({
+          first_name: qhaliUser.fullname,
+          last_name: qhaliUser.fullname,
+          username: qhaliUser.userName,
+          secret: qhaliUser.email,
+          email: qhaliUser.email,
+        });
+        return setCurrentUser(currentUser);
+      }
+
+      return setCurrentUser(existingUser);
+    });
+  }; */
+
+  useEffect(() => {
+    if (hospitals && qhaliUser) {
+      setCurrentUsers(dispatch);
+      if (currentUsers) {
+        setCurrentUser(qhaliUser, currentUsers, dispatch);
+      }
+      /* syncUsers(); */
+    }
+  }, [hospitals]);
+
+  useEffect(() => {
+    if (hospitals && qhaliUser && !currentUser) {
+      setCurrentUser(qhaliUser, currentUsers, dispatch);
+    }
+  }, [currentUsers]);
+
   useEffect(() => {
     const handleScroll = () => {
       const trasnparent = window.scrollY > 50;
@@ -65,7 +130,7 @@ const Navigation = ({ slide, color }) => {
 
   return (
     <>
-      <Navbar expand="false" fixed="top" className={navBackground ? 'py-0 pr-0' : 'py-0 pr-0 content-dark'} style={{ transition: '1s ease', backgroundColor: navBackground ? color : 'transparent' }}>
+      <Navbar expand="false" fixed="top" className={navBackground ? 'py-0 pr-0' : 'py-0 pr-0 content-dark'} style={{ zIndex: location.pathname === '/chats' || location.pathname.split('/').includes('product') ? '1' : '999', transition: '1s ease', backgroundColor: navBackground ? color : 'transparent' }}>
         <Link className="navbar__logo mx-2 text-qhali" to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
@@ -82,6 +147,12 @@ const Navigation = ({ slide, color }) => {
             </NavLink>
             <NavLink className="nav-link  text-qhali" to="/contact-us">
               Contact Us
+            </NavLink>
+            <NavLink className="nav-link  text-qhali" to="/chat">
+              Chat
+            </NavLink>
+            <NavLink className="nav-link  text-qhali" to="/chats">
+              Chats
             </NavLink>
 
             {qhaliUser ? (

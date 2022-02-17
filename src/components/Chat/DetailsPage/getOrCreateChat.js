@@ -3,6 +3,9 @@
 import axios from 'axios';
 
 export const getOrCreateChat = (headers, data, successFunc) => {
+  console.log(headers);
+  console.log(data);
+
   axios.put(
     'https://api.chatengine.io/chats/',
     data,

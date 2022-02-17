@@ -1,29 +1,25 @@
-import React, { useContext } from 'react';
-
 import { ChatEngine } from 'react-chat-engine';
-import Navbar from '../Navbar';
+import { useSelector } from 'react-redux';
 
-import { projectID } from '../data';
-import { Context } from '../data/context';
+export const projectID = process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID;
 
 const ChatsPage = () => {
-  const { currentUser } = useContext(Context);
+  const currentUser = useSelector((state) => state.currentUser);
 
   return (
-    <div>
-      <Navbar />
-
+    <div style={{ zIndex: '0' }}>
       { // You need the creds correct before rendering Chat Engine
-                currentUser.username && currentUser.secret
-                && (
-                <ChatEngine
-                  height="calc(100vh - 64px)"
-                  projectID={projectID}
-                  userName={currentUser.username}
-                  userSecret={currentUser.secret}
-                />
-                )
-            }
+          currentUser.username && currentUser.secret
+          && (
+          <ChatEngine
+            height="calc(100vh - 64px)"
+            maxHeight="90vh"
+            projectID={projectID}
+            userName={currentUser.username}
+            userSecret={currentUser.email}
+          />
+          )
+      }
     </div>
   );
 };

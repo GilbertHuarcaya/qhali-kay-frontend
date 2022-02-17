@@ -22,6 +22,9 @@ import {
   GET_ROLE_PERSONAL,
   POST_POSTULA_PERSONAL,
   GET_GOOGLE_HOSPITALS,
+  SET_CURRENT_HOSPITAL,
+  SET_CURRENT_USER,
+  SET_CURRENT_USERS,
 } from './constants';
 
 const initialState = {
@@ -44,6 +47,9 @@ const initialState = {
   rolePersonal: [],
   postulaInfo: [],
   hospitals: [],
+  currentHospital: null,
+  currentUser: null,
+  currentUsers: null,
 };
 
 function reducer(state = initialState, action = '') {
@@ -181,6 +187,21 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         hospitals: newValue,
+      };
+    case SET_CURRENT_HOSPITAL:
+      return {
+        ...state,
+        currentHospital: newValue,
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: newValue,
+      };
+    case SET_CURRENT_USERS:
+      return {
+        ...state,
+        currentUsers: newValue,
       };
 
     default:

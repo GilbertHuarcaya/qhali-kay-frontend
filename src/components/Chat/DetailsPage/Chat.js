@@ -1,22 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { ChatEngineWrapper, Socket, ChatFeed } from 'react-chat-engine';
-import { projectID } from '../data';
-import { Context } from '../data/context';
+import { useSelector } from 'react-redux';
 
 import { getOrCreateChat } from './getOrCreateChat';
 
+export const projectID = process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID;
+
 const Chat = ({ seller }) => {
   const didMountRef = useRef(false);
-  const { currentUser } = useContext(Context);
+  const currentUser = useSelector((state) => state.currentUser);
   const [chat, setChat] = useState(null);
   const [headers, setHeaders] = useState({
     'Project-ID': projectID,
     'User-Name': currentUser.username,
-    'User-Secret': currentUser.secret,
+    'User-Secret': currentUser.email,
   });
 
   useEffect(() => {

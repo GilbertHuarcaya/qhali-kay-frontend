@@ -28,6 +28,9 @@ import {
   ASIGN_PERSONAL_TO_ORDER,
   POST_POSTULA_PERSONAL,
   GET_GOOGLE_HOSPITALS,
+  SET_CURRENT_HOSPITAL,
+  SET_CURRENT_USERS,
+  SET_CURRENT_USER,
 } from './constants';
 
 import authService from '../services/auth';
@@ -37,6 +40,73 @@ import uploadService from '../services/upload';
 import userService from '../services/user';
 import hospitalService from '../services/hospital';
 import orderPayment from '../services/payment';
+import chatService from '../services/chat';
+
+export const setCurrentUsers = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await chatService.getUsers();
+    if (response.status === 200) {
+      const parsed = response.data.map((e) => ({ ...e, custom_json: JSON.parse(e.custom_json) }));
+      dispatch({ type: SET_CURRENT_USERS, payload: parsed });
+      return parsed;
+    }
+    return response;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const setCurrentUser = async (user, users, dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const existingUser = users.find((u) => user.userName === u.username);
+    if (!existingUser) {
+      const currentUser = await chatService.createUser({
+        first_name: user.fullname,
+        last_name: user.fullname,
+        username: user.userName,
+        secret: user.email,
+        email: user.email,
+      });
+      return dispatch({ type: SET_CURRENT_USER, payload: currentUser });
+    }
+
+    return dispatch({ type: SET_CURRENT_USER, payload: existingUser });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const createChatHospital = async (hospital, dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await chatService.createUser(hospital);
+
+    if (response) {
+      const parsed = { ...response, custom_json: JSON.parse(response.custom_json) };
+      dispatch({ type: SET_CURRENT_HOSPITAL, payload: parsed });
+      return parsed;
+    }
+    return null;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const setCurrentHospital = (hospital, dispatch) => {
+  dispatch({ type: SET_CURRENT_HOSPITAL, payload: hospital });
+  return hospital;
+};
 
 export const getHospitalsFromGoogle = async (location, dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });

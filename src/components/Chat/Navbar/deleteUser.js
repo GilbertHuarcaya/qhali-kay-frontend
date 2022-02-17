@@ -13,6 +13,6 @@ export const deleteUser = async (userid, successFunc) => {
     })
 
     .catch((error) => {
-      console.log('Create chat user', error.response);
+      console.log('Delete chat user', error.response);
     });
 };
