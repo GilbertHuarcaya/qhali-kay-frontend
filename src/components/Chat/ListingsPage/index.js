@@ -50,8 +50,8 @@ const ListingsPage = () => {
                 )}
           >
             <Meta
-              title={hospital.rating}
-              description={`${hospital.vicinity} - ${hospital.first_name} ${hospital.last_name}`}
+              title={hospital.username}
+              description={`${hospital.vicinity} - Rating: ${hospital.rating} ${hospital.custom_json.opening_hours ? 'OPEN' : 'CLOSED'}`}
             />
           </Card>
         </div>

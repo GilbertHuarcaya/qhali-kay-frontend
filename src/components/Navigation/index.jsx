@@ -56,27 +56,6 @@ const Navigation = ({ slide, color }) => {
     fetchData();
   }, [lat, lng]);
 
-  /*   const syncUsers = () => {
-    getUsers(async (users) => {
-      console.log('Fetched users', users.map((e) => ({ ...e, custom_json: JSON.parse(e.custom_json) })));
-
-      setUsers(users);
-      const existingUser = users.find((u) => qhaliUser.userName === u.username);
-      if (!existingUser) {
-        const currentUser = await createUser({
-          first_name: qhaliUser.fullname,
-          last_name: qhaliUser.fullname,
-          username: qhaliUser.userName,
-          secret: qhaliUser.email,
-          email: qhaliUser.email,
-        });
-        return setCurrentUser(currentUser);
-      }
-
-      return setCurrentUser(existingUser);
-    });
-  }; */
-
   useEffect(() => {
     if (hospitals && qhaliUser) {
       setCurrentUsers(dispatch);
@@ -148,12 +127,12 @@ const Navigation = ({ slide, color }) => {
             <NavLink className="nav-link  text-qhali" to="/contact-us">
               Contact Us
             </NavLink>
-            <NavLink className="nav-link  text-qhali" to="/chat">
-              Chat
+            <NavLink className="nav-link  text-qhali" to="/near-med-center">
+              Near Hospitals
             </NavLink>
-            <NavLink className="nav-link  text-qhali" to="/chats">
+            {/* <NavLink className="nav-link  text-qhali" to="/chats">
               Chats
-            </NavLink>
+            </NavLink> */}
 
             {qhaliUser ? (
               <NavDropdown title={qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-qhali text-center rounded my-0">
@@ -212,8 +191,8 @@ const Navigation = ({ slide, color }) => {
                 >
                   Contact Us
                 </NavLink>
-                <NavLink className="nav-link mx-2" to="/chat">
-                  Chat
+                <NavLink className="nav-link mx-2" to="/near-med-center" onClick={handleClose}>
+                  Near Hospitals
                 </NavLink>
                 <Form className="d-flex">
                   <FormControl
