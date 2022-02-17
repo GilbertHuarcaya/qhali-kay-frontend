@@ -25,6 +25,7 @@ import {
   SET_CURRENT_HOSPITAL,
   SET_CURRENT_USER,
   SET_CURRENT_USERS,
+  LOGIN_HOSPITAL,
 } from './constants';
 
 const initialState = {
@@ -202,6 +203,11 @@ function reducer(state = initialState, action = '') {
       return {
         ...state,
         currentUsers: newValue,
+      };
+    case LOGIN_HOSPITAL:
+      return {
+        ...state,
+        user: newValue,
       };
 
     default:

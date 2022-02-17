@@ -31,6 +31,7 @@ import {
   SET_CURRENT_HOSPITAL,
   SET_CURRENT_USERS,
   SET_CURRENT_USER,
+  LOGIN_HOSPITAL,
 } from './constants';
 
 import authService from '../services/auth';
@@ -60,15 +61,38 @@ export const setCurrentUsers = async (dispatch) => {
   }
 };
 
+export const loginHospital = async (dispatch, hospital) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await hospitalService.loginAccount(hospital);
+
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem('token', data.token);
+      const decoded = jwt_decode(data.token);
+      dispatch({ type: LOGIN_HOSPITAL, payload: decoded });
+    }
+    return data;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
 export const setCurrentUser = async (user, users, dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const existingUser = users.find((u) => user.userName === u.username);
+    const existingUser = users.find(
+      (u) => user.userName === u.username || user.hospitalName === u.username,
+    );
     if (!existingUser) {
       const currentUser = await chatService.createUser({
-        first_name: user.fullname,
-        last_name: user.fullname,
-        username: user.userName,
+        first_name: user.fullname || user.hospitalName,
+        last_name: user.fullname || user.hospitalName,
+        username: user.userName || user.hospitalName,
         secret: user.email,
         email: user.email,
       });
@@ -184,7 +208,9 @@ export const getUserFromLocalStorage = async (dispatch) => {
 
   if (token) {
     const decoded = jwt_decode(token);
-    const response = await authService.revalidateToken(decoded.email);
+    const response = decoded.hospitalName
+      ? await hospitalService.revalidateHospitalToken(decoded.email)
+      : await authService.revalidateToken(decoded.email);
     const data = await response.json();
 
     if (response.status === 401) {

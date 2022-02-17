@@ -6,7 +6,7 @@ import './App.scss';
 import Home from './pages/Home';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
-import Login from './components/Login';
+import LoginForm from './components/LoginForm';
 import Doctor from './components/Doctor';
 import Services from './components/Services';
 import ServiceDetails from './components/ServiceDetails';
@@ -40,7 +40,7 @@ const App = () => (
           <Route path="med-center/:id" element={<DetailsPage />} />
           <Route path="chats" element={<ChatsPage />} />
         </Route>
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<LoginForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </ScrollToTop>

@@ -1,6 +1,6 @@
 const URL_BASE = process.env.REACT_APP_API_URL_BASE;
 
-const loginHospital = ({ email, password }) => {
+const loginAccount = ({ email, password }) => {
   const payload = {
     method: 'POST',
     headers: {
@@ -74,12 +74,25 @@ export const getNearHospitals = (data) => {
   return fetch(`${URL_BASE}/api/hospitals/search/${data.lat},${data.lng}`, payload);
 };
 
+const revalidateHospitalToken = (email) => {
+  const accessTokenObj = localStorage.getItem('token');
+  const payload = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+  };
+  return fetch(`${URL_BASE}/api/hospitals/email/${email}`, payload);
+};
+
 const user = {
   patchUser,
   getAllHospitals,
   getNearHospitals,
-  loginHospital,
+  loginAccount,
   registerHospital,
+  revalidateHospitalToken,
 };
 
 export default user;

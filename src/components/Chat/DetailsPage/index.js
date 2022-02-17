@@ -75,7 +75,7 @@ const DetailsPage = () => {
             ? (
               isOpen
               && (
-              <Col xs={12} md={6} className="p-0" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
+              <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
                 <Chat seller={currentHospital} />
               </Col>
               )

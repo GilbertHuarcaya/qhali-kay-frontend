@@ -1,6 +1,7 @@
 export const REGISTER_USER = 'register-user';
 export const LOGOUT_USER = 'logout-user';
 export const LOGIN_USER = 'login-user';
+export const LOGIN_HOSPITAL = 'login-hospital';
 export const GET_USER_FROM_LOCALSTORAGE = 'get-user-from-localstorage';
 export const GET_ALL_SERVICES = 'all-services';
 export const GET_ALL_ORDERS = 'all-orders';
