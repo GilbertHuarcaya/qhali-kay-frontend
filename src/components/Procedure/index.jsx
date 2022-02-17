@@ -1,22 +1,24 @@
 import React from 'react';
-import { Card, Col, Container, Row, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Col, Container, Row } from 'react-bootstrap';
+import ProcedureItem from '../ProcedureItem';
 
 const Procedure = () => {
   const procedure = [
     {
       title: 'Search Best Medical Center Near You',
-      des: 'Search on Medical Centers Page and Login',
+      des: 'Fin near Medical Centers and Login to start chat',
       step: 1,
       key: 12,
       url: '/near-med-center',
+      image: 'https://www.torontohomecareassistance.ca/wp-content/uploads/2020/03/Senior-with-Doctor.jpg',
     },
     {
       title: 'Get Instant Response',
-      des: 'If you need an appoinment, start a chat from our website with the Medical Canter.',
+      des: 'If you need an appoinment, start a chat from our website with a Medical Canter.',
       step: 2,
       key: 13,
       url: '/near-med-center',
+      image: 'https://img.europapress.es/fotoweb/fotonoticia_20170103110958_420.jpg',
     },
     {
       title: 'Leave Your Feedback',
@@ -24,6 +26,7 @@ const Procedure = () => {
       step: 3,
       key: 14,
       url: '/feedback',
+      image: 'https://previews.123rf.com/images/olegdudko/olegdudko1908/olegdudko190801388/128531568-empleado-cara-retroalimentaci%C3%B3n-satisfacci%C3%B3n-encuesta-fondo-mejor.jpg',
     },
   ];
   return (
@@ -36,19 +39,15 @@ const Procedure = () => {
       <Row>
         {procedure.map((step) => (
           <Col md={12} lg={4} key={step.key}>
-            <Card className="my-2">
-              <Card.Body className="text-center w-100">
-                <Card.Title className="fw-bold">{step.title}</Card.Title>
-                <Card.Text>{step.des}</Card.Text>
-                <Link to={step.url}>
-                  <Button className="btn-qhali text-white text-center">
-                    Step
-                    {' '}
-                    {step.step}
-                  </Button>
-                </Link>
-              </Card.Body>
-            </Card>
+            <ProcedureItem
+              bgPhoto={step.image}
+              tag="Peru"
+              title={step.title}
+              subtitle={step.des}
+              cta={`Step ${step.step}`}
+              contHeight="15rem"
+              url={step.url}
+            />
           </Col>
         ))}
       </Row>

@@ -26,6 +26,7 @@ import {
   SET_CURRENT_USER,
   SET_CURRENT_USERS,
   LOGIN_HOSPITAL,
+  GET_ALL_HOSPITALS,
 } from './constants';
 
 const initialState = {
@@ -51,6 +52,7 @@ const initialState = {
   currentHospital: null,
   currentUser: null,
   currentUsers: null,
+  lastestHospitals: null,
 };
 
 function reducer(state = initialState, action = '') {
@@ -209,7 +211,11 @@ function reducer(state = initialState, action = '') {
         ...state,
         user: newValue,
       };
-
+    case GET_ALL_HOSPITALS:
+      return {
+        ...state,
+        lastestHospitals: newValue,
+      };
     default:
       return state;
   }

@@ -29,7 +29,7 @@ const registerHospital = (hospital) => {
   return fetch(`${URL_BASE}/api/hospitals`, payload);
 };
 
-const patchUser = (hospital) => {
+const patchHospital = (hospital) => {
   const accessTokenObj = localStorage.getItem('token');
 
   const hospitalId = hospital.id;
@@ -42,7 +42,7 @@ const patchUser = (hospital) => {
     body: JSON.stringify(hospital),
   };
 
-  return fetch(`${URL_BASE}/api/users/${hospitalId}`, payload);
+  return fetch(`${URL_BASE}/api/hospitals/${hospitalId}`, payload);
 };
 
 // obtener usuarios con role PERSONAL
@@ -87,7 +87,7 @@ const revalidateHospitalToken = (email) => {
 };
 
 const user = {
-  patchUser,
+  patchHospital,
   getAllHospitals,
   getNearHospitals,
   loginAccount,

@@ -1,22 +1,32 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import HospitalCard from '../HospitalCard';
 
 const ServiceDetails = () => {
   const { name, description } = useParams();
   return (
     <Container>
       <Row
-        style={{ minHeight: '60vh' }}
         className="d-flex justify-content-center align-items-center"
       >
         <Col md={6} className="mx-auto">
-          <Card className="p-5 shadow">
+          <HospitalCard
+            title={name}
+            subtitle={description}
+            iconName="fas fa-heart"
+            btnIcon="fas fa-arrow-right"
+            bgPhoto="https://picsum.photos/740/420/?random"
+            secondTitle="OPEN"
+            totalReviews={30}
+            ratingAverage={4.5}
+          />
+          {/* <Card className="p-5 shadow">
             <Card.Body>
               <Card.Title>{name}</Card.Title>
               <Card.Text className="text">{description}</Card.Text>
             </Card.Body>
-          </Card>
+          </Card> */}
         </Col>
       </Row>
     </Container>

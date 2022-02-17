@@ -32,6 +32,7 @@ import {
   SET_CURRENT_USERS,
   SET_CURRENT_USER,
   LOGIN_HOSPITAL,
+  GET_ALL_HOSPITALS,
 } from './constants';
 
 import authService from '../services/auth';
@@ -42,6 +43,23 @@ import userService from '../services/user';
 import hospitalService from '../services/hospital';
 import orderPayment from '../services/payment';
 import chatService from '../services/chat';
+
+export const getAllHospitalsFromDB = async (dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await hospitalService.getAllHospitals();
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_ALL_HOSPITALS, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
 
 export const setCurrentUsers = async (dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });

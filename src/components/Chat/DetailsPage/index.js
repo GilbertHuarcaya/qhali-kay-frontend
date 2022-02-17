@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { deleteUser } from '../Navbar/deleteUser';
 import Chat from './Chat';
 import LoginBtn from '../../LoginBtn';
+import DetailCard from '../../DetailCard';
 
 const DetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,35 +29,26 @@ const DetailsPage = () => {
         && (
         <Row className="w-100 m-0">
           <Col xs={12} md={6}>
-            <div style={{ margin: '12px' }}>
-              <div style={{ width: '100%', overflowX: 'scroll' }}>
-                <div style={{ display: 'flex' }}>
-                  <img
-                    alt="example"
-                    src={currentHospital.custom_json.photo ? currentHospital.custom_json.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
-                    style={{ width: '100%', height: '320px', objectFit: 'cover' }}
-                  />
-                </div>
-              </div>
-              <h1>{currentHospital.username}</h1>
-              <h5>
-                Rating:
-                {' '}
-                {currentHospital.custom_json.rating}
-              </h5>
-              <h5>
-                Address:
-                {currentHospital.custom_json.vicinity}
-              </h5>
-              <p style={{ maxWidth: '325px' }}>{currentHospital.custom_json.vicinity}</p>
-              <Link to="/near-med-center">
-                <button type="button" style={{ padding: '11px' }}>
-                  Back
-                </button>
-              </Link>
-              {currentUser
-                ? (
-                  currentHospital.username !== currentUser.username
+            <DetailCard
+              title={currentHospital.username}
+              subtitle={currentHospital.custom_json.vicinity}
+              tag="Perú"
+              centerIconName="fas fa-play-circle"
+              bottomIconName="fas fa-ellipsis-h"
+              bgPhoto={currentHospital.custom_json.photo ? currentHospital.custom_json.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
+              totalReviews={30}
+              ratingAverage={currentHospital.custom_json.rating}
+              contHeight="35rem"
+            />
+
+            <Link to="/near-med-center">
+              <button type="button" style={{ padding: '11px' }}>
+                Back
+              </button>
+            </Link>
+            {currentUser
+              ? (
+                currentHospital.username !== currentUser.username
                 && (
                 <button
                   type="button"
@@ -68,8 +60,8 @@ const DetailsPage = () => {
                   Chat with me!
                 </button>
                 )
-                ) : <LoginBtn />}
-            </div>
+              ) : <LoginBtn />}
+
           </Col>
           {currentUser
             ? (

@@ -1,12 +1,12 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col } from 'react-grid-system';
-import { Card } from 'antd';
 import { setCurrentHospital, setCurrentUsers, createChatHospital } from '../../../store/actions';
-
-const { Meta } = Card;
+import DetailCard from '../../DetailCard';
 
 const ListingsPage = () => {
   const hospitals = useSelector((state) => state.hospitals);
@@ -34,26 +34,20 @@ const ListingsPage = () => {
         sm={6}
         md={4}
         lg={3}
-        className="p-0"
+        className="p-0 my-2"
       >
-        <div style={{ margin: '12px' }}>
-          <Card
-            hoverable
-            onClick={() => { createAndNavigate(hospital); }}
-            style={{ maxWidth: '100%' }}
-            cover={(
-              <img
-                alt="example"
-                src={hospital.photo ? hospital.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
-                style={{ width: '100%', height: '320px', objectFit: 'cover' }}
-              />
-                )}
-          >
-            <Meta
-              title={hospital.username}
-              description={`${hospital.vicinity} - Rating: ${hospital.rating} ${hospital.custom_json.opening_hours ? 'OPEN' : 'CLOSED'}`}
-            />
-          </Card>
+        <div onClick={() => { createAndNavigate(hospital); }} style={{ margin: '12px', cursor: 'pointer' }}>
+          <DetailCard
+            title={hospital.username}
+            subtitle={hospital.vicinity}
+            iconName="fas fa-heart"
+            btnIcon="fas fa-arrow-right"
+            bgPhoto={hospital.photo ? hospital.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
+            secondTitle={hospital.custom_json.opening_hours ? 'OPEN' : 'CLOSED'}
+            totalReviews={30}
+            ratingAverage={hospital.rating}
+            contHeight="20rem"
+          />
         </div>
       </Col>
     ));

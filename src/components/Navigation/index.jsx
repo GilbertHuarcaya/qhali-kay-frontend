@@ -14,7 +14,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser } from '../../store/actions';
+import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser, getAllHospitalsFromDB } from '../../store/actions';
 import Slide from '../Slide';
 import logo from '../../images/logo.png';
 import './styles.scss';
@@ -69,6 +69,7 @@ const Navigation = ({ slide, color }) => {
   useEffect(() => {
     if (hospitals && qhaliUser && !currentUser) {
       setCurrentUser(qhaliUser, currentUsers, dispatch);
+      getAllHospitalsFromDB(dispatch);
     }
   }, [currentUsers]);
 
@@ -117,17 +118,15 @@ const Navigation = ({ slide, color }) => {
             {/* <NavLink className="nav-link  text-qhali" to="/">
               Home
             </NavLink> */}
-            <NavLink className="nav-link  text-qhali" to="/doctors">
-              Doctors
-            </NavLink>
             <NavLink className="nav-link  text-qhali" to="/services">
-              Services
+              Affiliations
+            </NavLink>
+
+            <NavLink className="nav-link  text-qhali" to="/near-med-center">
+              Near Hospitals
             </NavLink>
             <NavLink className="nav-link  text-qhali" to="/contact-us">
               Contact Us
-            </NavLink>
-            <NavLink className="nav-link  text-qhali" to="/near-med-center">
-              Near Hospitals
             </NavLink>
             {qhaliUser?.hospitalName ? (
               <NavLink className="nav-link  text-qhali" to="/chats">
@@ -181,22 +180,12 @@ const Navigation = ({ slide, color }) => {
                 className="justify-content-end flex-grow-1 pe-3"
                 collapseOnSelect
               >
-                <NavLink className="nav-link mx-2" to="/" onClick={handleClose}>
-                  Home
-                </NavLink>
-                <NavLink
-                  className="nav-link mx-2"
-                  to="/doctors"
-                  onClick={handleClose}
-                >
-                  Doctors
-                </NavLink>
                 <NavLink
                   className="nav-link mx-2"
                   to="/services"
                   onClick={handleClose}
                 >
-                  Services
+                  Affiliations
                 </NavLink>
                 <NavLink
                   className="nav-link mx-2"
