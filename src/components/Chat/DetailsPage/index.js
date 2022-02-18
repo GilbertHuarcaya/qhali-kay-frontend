@@ -45,7 +45,7 @@ const DetailsPage = () => {
             />
             <div className="d-flex justify-content-between pt-2">
               <Link to="/near-med-center">
-                <button type="button" className="btn btn-qhali" style={{ padding: '11px' }}>
+                <button type="button" className="btn btn-white" style={{ padding: '11px' }}>
                   Back
                 </button>
               </Link>
@@ -57,7 +57,7 @@ const DetailsPage = () => {
                 <button
                   type="button"
                   onClick={() => setIsOpen(!isOpen)}
-                  style={{ color: 'white', backgroundColor: '#1890ff', padding: '12px', border: '1px solid rgb(24, 144, 255)', borderRadius: '3px' }}
+                  style={{ color: 'white', backgroundColor: '#90d7ff', padding: '12px', border: '1px solid #90d7ff', borderRadius: '3px' }}
                 >
                   {isOpen && 'Close'}
                   {' '}
@@ -70,11 +70,11 @@ const DetailsPage = () => {
           {currentUser
             ? (
               isOpen ? (
-                <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
+                <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #90d7ff' }}>
                   <Chat seller={currentHospital} />
                 </Col>
               ) : (
-                <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
+                <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)' }}>
                   <Feedback md={10} />
                 </Col>
               )
