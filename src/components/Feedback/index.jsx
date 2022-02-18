@@ -1,40 +1,58 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Rating } from 'react-simple-star-rating';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { sendContactUsEmail } from '../../store/actions';
+import { postUserReview } from '../../store/actions';
+/* import './Postula.scss'; */
 import useForm from '../../hooks/useForm';
 import ActionSuccess from '../ActionSuccess';
 import PaymentSuccess from '../PaymentSuccess';
 
-const Contact = () => {
+const Contact = ({ md = 6 }) => {
   const user = useSelector((state) => state.user);
+  const currentHospital = useSelector((state) => state.currentHospital);
+  const [reviewRating, setReviewRating] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState();
-  const [loadingMessage, setLoadingMessage] = useState(false);
-
+  const [loadingPayment, setLoadingPayment] = useState(false);
   const { form, setForm, handleChange } = useForm();
+  const [formOk, setFormOk] = useState(false);
+
   useEffect(() => {
     if (user) {
       const data = {
-        fullname: user.fullname,
-        email: user.email,
+        userId: user.id,
+        userName: user.userName,
+        userPhoto: user.photo.url || 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png',
+        hospitalEmail: currentHospital?.email,
         message: '',
       };
       setForm(data);
     }
   }, [user]);
 
+  useEffect(() => {
+    const validateForm = () => {
+      if (form.message && form.message?.length > 10) {
+        setFormOk(true);
+      } else {
+        setFormOk(false);
+      }
+    };
+    validateForm();
+  }, [handleChange]);
+
   const onSubmitFiles = async (e) => {
     e.preventDefault();
-    setLoadingMessage(true);
-    const response = await sendContactUsEmail(dispatch, form);
-    console.log(response);
+    setLoadingPayment(true);
+    const response = await postUserReview(dispatch, { ...form, rating: reviewRating });
     setFormData(response);
-    if (response.status === 200) {
-      setLoadingMessage(false);
+    if (response.status === 201) {
+      setLoadingPayment(false);
       setSuccess(true);
       setTimeout(() => {
         navigate('/');
@@ -47,11 +65,16 @@ const Contact = () => {
     setFormData(null);
   };
 
-  const sendMessage = () => {
-    if (formData?.status === 200) {
+  const handleRating = (rate) => {
+    setReviewRating(rate);
+    // other logic
+  };
+
+  const paymentMessage = () => {
+    if (formData?.status === 201) {
       return (
         <PaymentSuccess
-          title="Envio realizado"
+          title="Completed"
           message="Thank you for your Feedback!!"
           visible={success}
         />
@@ -63,7 +86,7 @@ const Contact = () => {
           title="Error"
           message={formData?.message || 'Please try again...'}
           redirect="/"
-          button="Volver a Home"
+          button="Home"
           visible
           handleClose={handleClose}
         />
@@ -71,41 +94,12 @@ const Contact = () => {
     }
     return null;
   };
-
   return (
     <Container>
       <Row>
-        <Col md={6} className="mx-auto border p-5 rounded">
-          <h3 className="text-center mt-3 text-qhali text-bold">Contact us</h3>
+        <Col md={md} className="mx-auto border p-5 rounded">
+          <h3 className="text-center mt-3 text-qhali text-bold">Feedback</h3>
           <Form onSubmit={onSubmitFiles}>
-            <Form.Group controlId="formBasicName">
-              <Form.Label className="fw-bold">Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                required
-                name="fullname"
-                onChange={handleChange}
-                defaultValue={user?.fullname || ''}
-              />
-              <Form.Text className="text-muted"> </Form.Text>
-            </Form.Group>
-            {' '}
-            <br />
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label className="fw-bold">Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter Email"
-                required
-                name="email"
-                onChange={handleChange}
-                defaultValue={user?.email || ''}
-              />
-              <Form.Text className="text-muted"> </Form.Text>
-            </Form.Group>
-            {' '}
-            <br />
             <Form.Group controlId="formBasicTextarea">
               <Form.Label className="fw-bold">Message</Form.Label>
               <textarea
@@ -117,14 +111,23 @@ const Contact = () => {
                 onChange={handleChange}
               />
             </Form.Group>
+            <br />
+            <Form.Group controlId="formBasicTextarea">
+              <Form.Label className="fw-bold">Rating</Form.Label>
+              <Rating
+                onClick={handleRating}
+                ratingValue={reviewRating}
+              />
+            </Form.Group>
             <button
               className="btn btn-qhali w-100 mt-2 fw-bold text-white"
               type="submit"
+              disabled={!formOk}
             >
               Submit
             </button>
           </Form>
-          {loadingMessage ? (
+          {loadingPayment ? (
             <ActionSuccess
               title="Sending"
               message="In progress..."
@@ -132,7 +135,7 @@ const Contact = () => {
               handleClose={handleClose}
             />
           ) : null}
-          {sendMessage()}
+          {paymentMessage()}
         </Col>
       </Row>
     </Container>

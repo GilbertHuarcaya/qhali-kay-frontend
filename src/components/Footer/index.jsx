@@ -6,7 +6,7 @@ import logo from '../../images/logo.png';
 const Footer = () => (
   <footer className="container-fluid mt-5 ">
     <Row className="py-5">
-      <Col md={4} className=" px-5 d-flex flex-column align-items-center justify-content-center">
+      <Col md={6} className=" px-5 d-flex flex-column align-items-center justify-content-center">
         <Link to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
@@ -15,16 +15,16 @@ const Footer = () => (
           update connect with us.
         </p>
       </Col>
-      <Col md={4} className="px-5 d-flex flex-column align-items-center justify-content-center">
+      <Col md={6} className="px-5 d-flex flex-column align-items-center justify-content-center">
         <h4 className="fw-bold text-black">QhaliKay</h4>
         <ul className="list-group list-group-flush">
-          <li className="btn text-start">Home</li>
-          <li className="btn text-start">Doctors</li>
-          <li className="btn text-start">Services</li>
-          <li className="btn text-start">Contact us</li>
+          <li className="btn text-start"><Link to="/" className="btn text-start">Home</Link></li>
+          <li className="btn text-start"><Link to="/affiliations" className="btn text-start">Afiliations</Link></li>
+          <li className="btn text-start"><Link to="/near-med-center" className="btn text-start">Near Hospitals</Link></li>
+          <li className="btn text-start"><Link to="/contact-us" className="btn text-start">Contact Us</Link></li>
         </ul>
       </Col>
-      <Col md={4} className="px-5 d-flex flex-column align-items-center justify-content-center">
+      {/* <Col md={4} className="px-5 d-flex flex-column align-items-center justify-content-center">
         <h4 className="fw-bold text-black">Subscribe</h4>
         <form>
           <div className="mb-3">
@@ -44,7 +44,7 @@ const Footer = () => (
             Subscribe
           </button>
         </form>
-      </Col>
+      </Col> */}
     </Row>
     <p className="text-center mb-0">&copy; 2022 Copyright: QhaliKay - Gilbert Huarcaya</p>
   </footer>

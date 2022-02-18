@@ -149,7 +149,7 @@ const Navigation = ({ slide, color }) => {
             ) : null}
             {!qhaliUser && localStorage.token ? <Loader /> : null}
             {qhaliUser?.userName && localStorage.token ? (
-              <NavDropdown title={qhaliUser.userName.length > 8 ? `${qhaliUser.userName.slice(0, 8)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+              <NavDropdown title={qhaliUser.userName.length > 11 ? `${qhaliUser.userName.slice(0, 11)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                 <NavLink className="nav-link mx-2" to="/profile">
                   Profile
                 </NavLink>
@@ -162,7 +162,7 @@ const Navigation = ({ slide, color }) => {
               null
             )}
             {qhaliUser?.hospitalName && localStorage.token ? (
-              <NavDropdown title={qhaliUser.hospitalName.length > 8 ? `${qhaliUser.hospitalName.slice(0, 8)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+              <NavDropdown title={qhaliUser.hospitalName.length > 11 ? `${qhaliUser.hospitalName.slice(0, 11)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                 <NavLink className="nav-link mx-2" to="/profile">
                   Med Profile
                 </NavLink>
@@ -222,10 +222,24 @@ const Navigation = ({ slide, color }) => {
                   <Button variant="outline-success">Search</Button>
                 </Form>
                 <br />
-                {!qhaliUser ? <LoginBtn /> : null}
-                {qhaliUser?.userName ? (
-                  <NavDropdown title={qhaliUser.userName.length > 8 ? `${qhaliUser.userName.slice(0, 8)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
-                    <NavLink className="nav-link mx-2" to="/profile">
+                {!qhaliUser ? (
+                  <NavLink className="nav-link  text-qhali" to="/login">
+                    For Hospitals
+                  </NavLink>
+                ) : null}
+                {qhaliUser?.hospitalName ? (
+                  <NavLink className="nav-link  text-qhali" to="/chats">
+                    Chats
+                  </NavLink>
+                ) : null}
+                {!qhaliUser && localStorage.token ? <Loader /> : null}
+                {qhaliUser?.userName && localStorage.token ? (
+                  <NavDropdown title={qhaliUser.userName.length > 10 ? `${qhaliUser.userName.slice(0, 10)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+
+                    <NavLink className="nav-link text-center" to="/profile" onClick={handleClose}>
+                      {qhaliUser?.photo ? (
+                        <img className="rounded-circle p-3 mx-auto" src={qhaliUser.photo.url} alt={qhaliUser.userName} style={{ width: '5rem' }} />
+                      ) : null}
                       Profile
                     </NavLink>
                     <NavDropdown.Divider />
@@ -234,10 +248,10 @@ const Navigation = ({ slide, color }) => {
                     </NavDropdown.Item>
                   </NavDropdown>
                 ) : (
-                  ''
+                  null
                 )}
-                {qhaliUser?.hospitalName ? (
-                  <NavDropdown title={qhaliUser.hospitalName.length > 8 ? `${qhaliUser.hospitalName.slice(0, 8)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
+                {qhaliUser?.hospitalName && localStorage.token ? (
+                  <NavDropdown title={qhaliUser.hospitalName.length > 10 ? `${qhaliUser.hospitalName.slice(0, 10)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                     <NavLink className="nav-link mx-2" to="/profile">
                       Med Profile
                     </NavLink>
@@ -247,12 +261,10 @@ const Navigation = ({ slide, color }) => {
                     </NavDropdown.Item>
                   </NavDropdown>
                 ) : (
-                  ''
+                  null
                 )}
+                {!qhaliUser && !localStorage.token ? <LoginBtn /> : null}
               </Nav>
-              {user?.photo ? (
-                <img src={user.picture} alt={user.userName} />
-              ) : null}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </div>

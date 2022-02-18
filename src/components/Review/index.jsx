@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Carousel, Container, Row } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { Rating } from 'react-simple-star-rating';
+import { getReviewsFromDB } from '../../store/actions';
 
 const Review = () => {
-  const [review, setReview] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const reviews = useSelector((state) => state.reviews);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const data = [{ userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '122', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '123', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }, { userName: 'gilbert', userImage: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png', userId: '124', body: 'Muy buen servicio para encontrar clinicas cerca y empezar un tramite' }];
-    setReview(data);
-    setLoading(false);
-  }, []);
-
+    if (!reviews) {
+      getReviewsFromDB(dispatch);
+    }
+  }, [reviews]);
   return (
     <Container>
       <Row style={{ minHeight: '10rem' }}>
@@ -20,25 +22,26 @@ const Review = () => {
           Review
         </h1>
         <Carousel>
-          {loading ? (
-            <div className="spinner-border text-qhali mx-auto" role="status">
+          {!reviews ? (
+            <div className="spinner-border text-qhali mx-auto text-center">
               <span className="visually-hidden">Loading...</span>
             </div>
           ) : (
-            review.map((el) => (
+            reviews.map((el) => (
               <Carousel.Item
                 id="testimonial-carousel-item"
-                key={el.userId}
+                key={Math.random()}
                 interval={2500}
               >
                 <Carousel.Caption>
                   <img
                     className=" review__image m-auto mt-5 rounded-circle z-index-2"
-                    src={el.userImage}
+                    src={el.userPhoto}
                     alt={el.userName}
                   />
                   <h3 className="text-dark fw-bold py-2">{el.userName}</h3>
-                  <p className="text-dark">{el.body}</p>
+                  <p className="text-dark m-0">{el.message}</p>
+                  <Rating size="1rem" ratingValue={el.rating} readonly />
                 </Carousel.Caption>
               </Carousel.Item>
             ))

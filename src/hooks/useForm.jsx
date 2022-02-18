@@ -16,6 +16,7 @@ const useForm = (initialState = {}) => {
   return {
     form,
     handleChange,
+    setForm,
   };
 };
 

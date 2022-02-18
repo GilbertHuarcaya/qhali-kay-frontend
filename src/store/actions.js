@@ -340,12 +340,11 @@ export const postUserReview = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
     const response = await reviewService.postReview(form);
-    const data = await response.json();
-
     if (response.ok) {
       dispatch({ type: POST_USER_REVIEW, payload: null });
+      return response;
     }
-    return data;
+    return response;
   } catch (error) {
     // eslint-disable-next-line no-console
     return console.error(error);
@@ -547,10 +546,10 @@ export const sendUserEmailResetPassword = async (dispatch, form) => {
   }
 };
 
-export const sendPostulaEmail = async (dispatch, form) => {
+export const sendContactUsEmail = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await userService.postulaPersonal(form);
+    const response = await userService.contactUs(form);
     return response;
   } catch (error) {
     throw new Error(error);

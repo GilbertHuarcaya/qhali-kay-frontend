@@ -29,7 +29,7 @@ const sendUserEmail = (form) => {
   return fetch(`${URL_BASE}/api/users/email`, payload);
 };
 
-const postulaPersonal = (form) => {
+/* const postulaPersonal = (form) => {
   const formData = new FormData();
   const { files } = form;
 
@@ -45,8 +45,16 @@ const postulaPersonal = (form) => {
   formData.append('identificacion', form.identificacion);
 
   return axios.post(`${URL_BASE}/api/users/postula`, formData);
-};
+}; */
 
+const contactUs = (form) => {
+  const formData = new FormData();
+  formData.append('email', form.email);
+  formData.append('fullname', form.fullname);
+  formData.append('message', form.message);
+
+  return axios.post(`${URL_BASE}/api/users/contact-us`, formData);
+};
 // obtener usuarios con role PERSONAL
 const getAllRolePersonalService = () => {
   const accessTokenObj = localStorage.getItem('token');
@@ -80,7 +88,7 @@ const user = {
   patchUser,
   sendUserEmail,
   getAllRolePersonalService,
-  postulaPersonal,
+  contactUs,
   getNearHospitals,
   // forgotPassword,
 };

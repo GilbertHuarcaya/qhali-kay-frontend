@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
@@ -10,6 +11,7 @@ import { deleteUser } from '../Navbar/deleteUser';
 import Chat from './Chat';
 import LoginBtn from '../../LoginBtn';
 import DetailCard from '../../DetailCard';
+import Feedback from '../../Feedback';
 
 const DetailsPage = () => {
   const currentHospital = useSelector((state) => state.currentHospital);
@@ -67,11 +69,14 @@ const DetailsPage = () => {
           </Col>
           {currentUser
             ? (
-              isOpen
-              && (
-              <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
-                <Chat seller={currentHospital} />
-              </Col>
+              isOpen ? (
+                <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
+                  <Chat seller={currentHospital} />
+                </Col>
+              ) : (
+                <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #bae7ff' }}>
+                  <Feedback md={10} />
+                </Col>
               )
             )
             : null}
