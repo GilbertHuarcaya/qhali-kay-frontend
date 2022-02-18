@@ -33,6 +33,7 @@ const Navigation = ({ slide, color }) => {
   const hospitals = useSelector((state) => state.hospitals);
   const currentUsers = useSelector((state) => state.currentUsers);
   const currentUser = useSelector((state) => state.currentUser);
+  const lastestHospitals = useSelector((state) => state.lastestHospitals);
 
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
@@ -69,9 +70,14 @@ const Navigation = ({ slide, color }) => {
   useEffect(() => {
     if (hospitals && qhaliUser && !currentUser) {
       setCurrentUser(qhaliUser, currentUsers, dispatch);
-      getAllHospitalsFromDB(dispatch);
     }
   }, [currentUsers]);
+
+  useEffect(() => {
+    if (!lastestHospitals) {
+      getAllHospitalsFromDB(dispatch);
+    }
+  }, [lastestHospitals]);
 
   useEffect(() => {
     const handleScroll = () => {
