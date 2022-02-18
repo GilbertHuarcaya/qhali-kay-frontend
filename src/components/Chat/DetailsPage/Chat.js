@@ -31,7 +31,15 @@ const Chat = ({ seller }) => {
     }
   });
 
-  if (chat === null) return <div />;
+  if (chat === null) {
+    return (
+      <div>
+        {' '}
+        <img src="https://cdn.dribbble.com/users/218857/screenshots/4577082/media/6d5343a0117c49403749f0ad6925f7a5.gif" alt="loading logo" className="w-100 text-center" />
+        <h4 className="text-center">Connecting for your health...</h4>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%' }}>

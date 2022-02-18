@@ -12,12 +12,14 @@ import LoginBtn from '../../LoginBtn';
 import DetailCard from '../../DetailCard';
 
 const DetailsPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const currentHospital = useSelector((state) => state.currentHospital);
   const currentUser = useSelector((state) => state.currentUser);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    console.log('Chat created');
+    if (currentUser) {
+      setIsOpen(true);
+    }
     return () => {
       deleteUser(currentHospital.id);
     };
@@ -32,23 +34,23 @@ const DetailsPage = () => {
             <DetailCard
               title={currentHospital.username}
               subtitle={currentHospital.custom_json.vicinity}
-              tag="Perú"
-              centerIconName="fas fa-play-circle"
-              bottomIconName="fas fa-ellipsis-h"
+              tag={currentHospital.opnening_hours && currentHospital.opnening_hours?.open_now ? 'open' : 'closed'}
+              tagBg={currentHospital.custom_json.opnening_hours && currentHospital.custom_json.opnening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
               bgPhoto={currentHospital.custom_json.photo ? currentHospital.custom_json.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
-              totalReviews={30}
+              totalReviews={currentHospital.custom_json.user_ratings_total}
               ratingAverage={currentHospital.custom_json.rating}
-              contHeight="35rem"
+              contHeight="30rem"
             />
+            <div className="d-flex justify-content-between pt-2">
+              <Link to="/near-med-center">
+                <button type="button" className="btn btn-qhali" style={{ padding: '11px' }}>
+                  Back
+                </button>
+              </Link>
 
-            <Link to="/near-med-center">
-              <button type="button" style={{ padding: '11px' }}>
-                Back
-              </button>
-            </Link>
-            {currentUser
-              ? (
-                currentHospital.username !== currentUser.username
+              {currentUser
+                ? (
+                  currentHospital.username !== currentUser.username
                 && (
                 <button
                   type="button"
@@ -57,11 +59,11 @@ const DetailsPage = () => {
                 >
                   {isOpen && 'Close'}
                   {' '}
-                  Chat with me!
+                  Chat!
                 </button>
                 )
-              ) : <LoginBtn />}
-
+                ) : <LoginBtn />}
+            </div>
           </Col>
           {currentUser
             ? (

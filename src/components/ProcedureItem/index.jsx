@@ -15,6 +15,7 @@ const Container = styled.div`
   padding: 0px 25px;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
   position: relative;
 `;
@@ -23,6 +24,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const Tag = styled.div`

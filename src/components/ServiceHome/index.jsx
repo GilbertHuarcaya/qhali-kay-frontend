@@ -24,12 +24,13 @@ const ServiceHome = ({ item }) => {
               <DetailCard
                 title={i.hospitalName}
                 subtitle={i.custom_json.vicinity}
-                tag="Perú"
+                tag={i.custom_json.opnening_hours && i.custom_json.opnening_hours?.open_now ? 'open' : 'closed'}
+                tagBg={i.custom_json.opnening_hours && i.custom_json.opnening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
                 centerIconName="fas fa-play-circle"
                 bottomIconName="fas fa-ellipsis-h"
                 bgPhoto={i.custom_json.photo ? i.custom_json.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
-                totalReviews={30}
-                ratingAverage={i.custom_json.rating}
+                totalReviews={i.totalRatings || 'No'}
+                ratingAverage={i.rating}
                 contHeight="25rem"
               />
             </Col>

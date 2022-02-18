@@ -34,17 +34,20 @@ const ListingsPage = () => {
         sm={6}
         md={4}
         lg={3}
-        className="p-0 my-2"
+        className="p-0"
       >
         <div onClick={() => { createAndNavigate(hospital); }} style={{ margin: '12px', cursor: 'pointer' }}>
           <DetailCard
             title={hospital.username}
             subtitle={hospital.vicinity}
+            tag={hospital.custom_json.opnening_hours && hospital.custom_json.opnening_hours?.open_now ? 'open' : 'closed'}
+            tagBg={hospital.custom_json.opnening_hours && hospital.custom_json.opnening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
             iconName="fas fa-heart"
-            btnIcon="fas fa-arrow-right"
+            btnIcon="fas fa-ellipsis-h"
+            bottomIconName="fas fa-comment"
             bgPhoto={hospital.photo ? hospital.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
             secondTitle={hospital.custom_json.opening_hours ? 'OPEN' : 'CLOSED'}
-            totalReviews={30}
+            totalReviews={hospital.totalRatings || 'No'}
             ratingAverage={hospital.rating}
             contHeight="20rem"
           />

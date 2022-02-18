@@ -38,14 +38,14 @@ const Procedure = () => {
       </h1>
       <Row>
         {procedure.map((step) => (
-          <Col md={12} lg={4} key={step.key}>
+          <Col xs={12} sm={12} md={4} lg={4} key={step.key} className="my-1">
             <ProcedureItem
               bgPhoto={step.image}
               tag="Peru"
               title={step.title}
               subtitle={step.des}
               cta={`Step ${step.step}`}
-              contHeight="15rem"
+              contHeight="16rem"
               url={step.url}
             />
           </Col>

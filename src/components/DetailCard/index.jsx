@@ -119,60 +119,60 @@ const DetailCard = ({
           </>
         )}
         <ReviewsContainer>
-          {ratingAverage === 0.5 && <HalfStar />}
-          {ratingAverage === 1 && <FullStar />}
-          {ratingAverage === 1.5 && (
+          {ratingAverage >= 0 && ratingAverage <= 0.5 && <HalfStar />}
+          {ratingAverage > 0.5 && ratingAverage <= 1 && <FullStar />}
+          {ratingAverage > 1 && ratingAverage <= 1.5 && (
             <>
               <FullStar />
               <HalfStar />
             </>
           )}
-          {ratingAverage === 2 && (
+          {ratingAverage > 1.5 && ratingAverage <= 2 && (
             <>
               <FullStar />
               <FullStar />
             </>
           )}
-          {ratingAverage === 2.5 && (
+          {ratingAverage > 2 && ratingAverage <= 2.5 && (
             <>
               <FullStar />
               <FullStar />
               <HalfStar />
             </>
           )}
-          {ratingAverage === 3 && (
+          {ratingAverage > 2.5 && ratingAverage <= 3 && (
             <>
               <FullStar />
               <FullStar />
               <FullStar />
             </>
           )}
-          {ratingAverage === 3.5 && (
+          {ratingAverage >= 3 && ratingAverage <= 3.5 && (
             <>
-              <FullStar />
-              <FullStar />
-              <FullStar />
-              <HalfStar />
-            </>
-          )}
-          {ratingAverage === 4 && (
-            <>
-              <FullStar />
-              <FullStar />
-              <FullStar />
-              <FullStar />
-            </>
-          )}
-          {ratingAverage === 4.5 && (
-            <>
-              <FullStar />
               <FullStar />
               <FullStar />
               <FullStar />
               <HalfStar />
             </>
           )}
-          {ratingAverage === 5 && (
+          {ratingAverage > 3.5 && ratingAverage <= 4 && (
+            <>
+              <FullStar />
+              <FullStar />
+              <FullStar />
+              <FullStar />
+            </>
+          )}
+          {ratingAverage > 4 && ratingAverage <= 4.5 && (
+            <>
+              <FullStar />
+              <FullStar />
+              <FullStar />
+              <FullStar />
+              <HalfStar />
+            </>
+          )}
+          {ratingAverage > 4.5 && ratingAverage <= 5 && (
             <>
               <FullStar />
               <FullStar />
