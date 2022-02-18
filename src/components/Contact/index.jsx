@@ -31,7 +31,6 @@ const Contact = () => {
     e.preventDefault();
     setLoadingMessage(true);
     const response = await sendContactUsEmail(dispatch, form);
-    console.log(response);
     setFormData(response);
     if (response.status === 200) {
       setLoadingMessage(false);

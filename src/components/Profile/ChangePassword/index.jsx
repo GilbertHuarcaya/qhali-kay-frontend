@@ -41,7 +41,7 @@ const NewPassword = () => {
       setNewPasswordShown(!newPasswordShown);
     }
   };
-  console.log(form);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     changePassword(dispatch, form);
