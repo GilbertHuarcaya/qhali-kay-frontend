@@ -446,10 +446,14 @@ export const postUploadFile = async (dispatch, file, user) => {
     const response = await uploadService.postFile(file);
 
     if (response.status === 200) {
-      const userResponse = await userService.patchUser({
+      const newData = {
         ...user,
         photo: response.data,
-      });
+      };
+      const userResponse = user.hospitalName
+        ? await hospitalService.patchHospital(newData)
+        : await userService.patchUser(newData);
+
       const userData = await userResponse.json();
 
       if (userResponse.ok) {
@@ -483,7 +487,9 @@ export const postUploadFiles = async (dispatch, files) => {
 export const changePassword = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await authService.forgotPassword(form);
+    const response = form.hospitalName
+      ? await authService.setNewHospitalPassword(form)
+      : await authService.setNewPassword(form);
 
     const data = await response.json();
 
@@ -624,7 +630,9 @@ export const getAllRolePersonal = async (dispatch) => {
 export const patchUserData = async (dispatch, form) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
-    const response = await userService.patchUser(form);
+    const response = form.hospitalName
+      ? await hospitalService.patchHospital(form)
+      : await userService.patchUser(form);
     const data = await response.json();
 
     if (response.ok) {

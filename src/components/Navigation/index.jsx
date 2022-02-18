@@ -20,6 +20,7 @@ import logo from '../../images/logo.png';
 import './styles.scss';
 import LoginBtn from '../LoginBtn';
 import LogoutBtn from '../LogoutBtn';
+import Loader from '../Loader';
 
 const Navigation = ({ slide, color }) => {
   const location = useLocation();
@@ -40,13 +41,15 @@ const Navigation = ({ slide, color }) => {
 
   useEffect(() => {
     const getCoords = async () => {
-      await navigator.geolocation.getCurrentPosition((position) => {
-        setLat(position.coords.latitude);
-        setLng(position.coords.longitude);
-      });
+      if (location.pathname.split('/').includes('near-med-center')) {
+        await navigator.geolocation.getCurrentPosition((position) => {
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude);
+        });
+      }
     };
     getCoords();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,17 +61,17 @@ const Navigation = ({ slide, color }) => {
   }, [lat, lng]);
 
   useEffect(() => {
-    if (hospitals && qhaliUser) {
+    if (qhaliUser) {
       setCurrentUsers(dispatch);
       if (currentUsers) {
         setCurrentUser(qhaliUser, currentUsers, dispatch);
       }
       /* syncUsers(); */
     }
-  }, [hospitals]);
+  }, [qhaliUser]);
 
   useEffect(() => {
-    if (hospitals && qhaliUser && !currentUser) {
+    if (currentUsers && qhaliUser && !currentUser) {
       setCurrentUser(qhaliUser, currentUsers, dispatch);
     }
   }, [currentUsers]);
@@ -134,12 +137,18 @@ const Navigation = ({ slide, color }) => {
             <NavLink className="nav-link  text-qhali" to="/contact-us">
               Contact Us
             </NavLink>
+            {!qhaliUser ? (
+              <NavLink className="nav-link  text-qhali" to="/login">
+                For Hospitals
+              </NavLink>
+            ) : null}
             {qhaliUser?.hospitalName ? (
               <NavLink className="nav-link  text-qhali" to="/chats">
                 Chats
               </NavLink>
             ) : null}
-            {qhaliUser?.userName ? (
+            {!qhaliUser && localStorage.token ? <Loader /> : null}
+            {qhaliUser?.userName && localStorage.token ? (
               <NavDropdown title={qhaliUser.userName.length > 8 ? `${qhaliUser.userName.slice(0, 8)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                 <NavLink className="nav-link mx-2" to="/profile">
                   Profile
@@ -150,9 +159,9 @@ const Navigation = ({ slide, color }) => {
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              ''
+              null
             )}
-            {qhaliUser?.hospitalName ? (
+            {qhaliUser?.hospitalName && localStorage.token ? (
               <NavDropdown title={qhaliUser.hospitalName.length > 8 ? `${qhaliUser.hospitalName.slice(0, 8)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                 <NavLink className="nav-link mx-2" to="/profile">
                   Med Profile
@@ -163,9 +172,9 @@ const Navigation = ({ slide, color }) => {
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              ''
+              null
             )}
-            {!qhaliUser ? <LoginBtn /> : null}
+            {!qhaliUser && !localStorage.token ? <LoginBtn /> : null}
           </div>
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={toggleShow} className="mx-2" />
           <Navbar.Offcanvas

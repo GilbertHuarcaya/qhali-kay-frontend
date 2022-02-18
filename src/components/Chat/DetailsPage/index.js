@@ -34,8 +34,8 @@ const DetailsPage = () => {
             <DetailCard
               title={currentHospital.username}
               subtitle={currentHospital.custom_json.vicinity}
-              tag={currentHospital.opnening_hours && currentHospital.opnening_hours?.open_now ? 'open' : 'closed'}
-              tagBg={currentHospital.custom_json.opnening_hours && currentHospital.custom_json.opnening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
+              tag={currentHospital.custom_json.opening_hours && currentHospital.custom_json.opening_hours?.open_now ? 'open' : 'closed'}
+              tagBg={currentHospital.custom_json.opening_hours && currentHospital.custom_json.opening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
               bgPhoto={currentHospital.custom_json.photo ? currentHospital.custom_json.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
               totalReviews={currentHospital.custom_json.user_ratings_total}
               ratingAverage={currentHospital.custom_json.rating}

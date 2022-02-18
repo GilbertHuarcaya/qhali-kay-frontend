@@ -42,8 +42,8 @@ const Profile = () => {
   };
   return (
     <div className="card--desktop">
-      <Row className="w-100">
-        <Col sm={3} md={4} className="d-flex flex-column align-items-end px-0">
+      <Row className="justify-content-center w-100">
+        <Col xs={11} sm={3} md={3} lg={4} className="d-flex flex-column align-items-end px-0">
           <div className="card card-principal h-100 justify-content-start">
             <h1 className="card__form__h2">Profile</h1>
             <button
@@ -63,7 +63,7 @@ const Profile = () => {
             </Row>
           </div>
         </Col>
-        <Col sm={9} md={6} className="d-flex flex-column align-items-left justify-content-center px-0">{user ? <Outlet /> : <Loader />}</Col>
+        <Col xs={11} sm={9} md={6} className="d-flex flex-column align-items-left justify-content-center px-0">{user ? <Outlet /> : <Loader />}</Col>
       </Row>
 
       <div

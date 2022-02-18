@@ -18,7 +18,7 @@ const ListingsPage = () => {
 
     const existingHospital = await users.find((u) => value.username === u.username);
     if (existingHospital === undefined) {
-      const newHospital = await createChatHospital(value, dispatch);
+      const newHospital = await createChatHospital({ ...value, secret: value.email }, dispatch);
 
       return navigate(`/med-center/${newHospital.id}`);
     }
@@ -40,8 +40,8 @@ const ListingsPage = () => {
           <DetailCard
             title={hospital.username}
             subtitle={hospital.vicinity}
-            tag={hospital.custom_json.opnening_hours && hospital.custom_json.opnening_hours?.open_now ? 'open' : 'closed'}
-            tagBg={hospital.custom_json.opnening_hours && hospital.custom_json.opnening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
+            tag={hospital.custom_json.opening_hours && hospital.custom_json.opening_hours?.open_now ? 'open' : ''}
+            tagBg={hospital.custom_json.opening_hours && hospital.custom_json.opening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
             iconName="fas fa-heart"
             btnIcon="fas fa-ellipsis-h"
             bottomIconName="fas fa-comment"
@@ -58,7 +58,7 @@ const ListingsPage = () => {
 
   return (
     <Row className="w-100 m-0">
-      { hospitals ? renderhospitals() : <h1>Nada</h1> }
+      { hospitals?.length > 0 ? renderhospitals() : <img src="https://cdn.dribbble.com/users/107759/screenshots/4231691/radar.gif" alt="radar-loader" className="w-100 h-100 " /> }
     </Row>
   );
 };

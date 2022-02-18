@@ -15,7 +15,11 @@ const NewPassword = () => {
   const prefilledForm = {
     email: user.email,
   };
-  const { form, handleChange } = useForm(prefilledForm);
+  const prefilledHospitalForm = {
+    email: user.email,
+    hospitalName: user.hospitalName,
+  };
+  const { form, handleChange } = useForm(user.hospitalName ? prefilledHospitalForm : prefilledForm);
   const [actualPasswordShown, setActualPasswordShown] = useState(false);
   const toggleActualPasswordVisiblity = () => {
     setActualPasswordShown(!actualPasswordShown);
@@ -37,11 +41,9 @@ const NewPassword = () => {
       setNewPasswordShown(!newPasswordShown);
     }
   };
-
+  console.log(form);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    /* loginUser(dispatch, form); */
     changePassword(dispatch, form);
     navigate('/');
   };

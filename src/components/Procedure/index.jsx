@@ -6,7 +6,7 @@ const Procedure = () => {
   const procedure = [
     {
       title: 'Search Best Medical Center Near You',
-      des: 'Fin near Medical Centers and Login to start chat',
+      des: 'Find near Medical Centers and Login to start a chat',
       step: 1,
       key: 12,
       url: '/near-med-center',

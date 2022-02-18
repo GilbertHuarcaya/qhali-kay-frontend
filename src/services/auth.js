@@ -32,7 +32,7 @@ const registerAccount = (user) => {
 };
 
 // const forgotPassword = (email) => {};
-const forgotPassword = ({ email, password, newPassword }) => {
+const setNewPassword = ({ email, password, newPassword }) => {
   const payload = {
     method: 'POST',
     headers: {
@@ -43,6 +43,16 @@ const forgotPassword = ({ email, password, newPassword }) => {
   return fetch(`${URL_BASE}/auth/local/change-password`, payload);
 };
 
+const setNewHospitalPassword = ({ email, password, newPassword }) => {
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password, newPassword }),
+  };
+  return fetch(`${URL_BASE}/auth/local/change-password-hospital`, payload);
+};
 const revalidateToken = (email) => {
   const accessTokenObj = localStorage.getItem('token');
   const payload = {
@@ -81,9 +91,10 @@ const auth = {
   loginAccount,
   registerAccount,
   revalidateToken,
-  forgotPassword,
+  setNewPassword,
   userCreateValidation,
   resetPassword,
+  setNewHospitalPassword,
 };
 
 export default auth;
