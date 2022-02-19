@@ -237,7 +237,7 @@ const Navigation = ({ slide, color }) => {
                   <NavDropdown title={qhaliUser.userName.length > 10 ? `${qhaliUser.userName.slice(0, 10)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
 
                     <NavLink className="nav-link text-center" to="/profile" onClick={handleClose}>
-                      {qhaliUser?.photo ? (
+                      {qhaliUser?.photo?.url ? (
                         <img className="rounded-circle p-3 mx-auto" src={qhaliUser.photo.url} alt={qhaliUser.userName} style={{ width: '5rem' }} />
                       ) : null}
                       Profile
