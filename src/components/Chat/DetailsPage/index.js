@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-grid-system';
-import { Link } from 'react-router-dom';
+/* import { Link } from 'react-router-dom'; */
 import { deleteUser } from '../Navbar/deleteUser';
 import Chat from './Chat';
 import LoginBtn from '../../LoginBtn';
@@ -44,11 +44,11 @@ const DetailsPage = () => {
               contHeight="30rem"
             />
             <div className="d-flex justify-content-between pt-2">
-              <Link to="/near-med-center">
+              {/* <Link to="/near-med-center">
                 <button type="button" className="btn btn-white" style={{ padding: '11px' }}>
                   Back
                 </button>
-              </Link>
+              </Link> */}
 
               {currentUser
                 ? (

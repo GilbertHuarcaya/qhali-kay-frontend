@@ -21,7 +21,7 @@ const AffiliationsMap = ({ children }) => (
       pitch: 0,
     }}
     id="mapbox"
-    style={{ minWidth: '48vw', maxWidth: '90vw', height: '93vh', position: 'sticky', top: '60px' }}
+    style={{ minWidth: '48vw', maxWidth: '100vw', minHeight: '50vh', maxHeight: '93vh', position: 'sticky', top: '60px' }}
     mapStyle="mapbox://styles/mapbox/streets-v9"
     mapboxAccessToken={mapToken}
   >

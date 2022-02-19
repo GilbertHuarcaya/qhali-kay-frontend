@@ -126,6 +126,23 @@ export const setCurrentUser = async (user, users, dispatch) => {
   }
 };
 
+export const createChat = async (header, data, dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const currentUser = await chatService.getOrCreateChat({
+      header, data,
+    });
+
+    dispatch({ type: SET_CURRENT_USER, payload: null });
+    return currentUser;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
 export const createChatHospital = async (hospital, dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
@@ -154,6 +171,23 @@ export const getHospitalsFromGoogle = async (location, dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {
     const response = await hospitalService.getNearHospitals(location);
+    const data = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: GET_GOOGLE_HOSPITALS, payload: data });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
+export const getNextPageHospitalsFromGoogle = async (nextPageToken, dispatch) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await hospitalService.getNearNextPageHospitals(nextPageToken);
     const data = await response.json();
 
     if (response.ok) {

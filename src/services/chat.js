@@ -20,10 +20,20 @@ const getUsers = () => axios.get(
   { headers: { 'Private-Key': process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY } },
 );
 
+const getOrCreateChat = async (headers, data) => {
+  const res = await axios.put(
+    'https://api.chatengine.io/chats/',
+    data,
+    { headers },
+  );
+  return res.data;
+};
+
 const chat = {
   createUser,
   deleteUser,
   getUsers,
+  getOrCreateChat,
   // forgotPassword,
 };
 

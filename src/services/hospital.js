@@ -60,7 +60,7 @@ const getAllHospitals = () => {
   return fetch(`${URL_BASE}/api/hospitals`, payload);
 };
 
-export const getNearHospitals = (data) => {
+const getNearHospitals = (data) => {
   const accessTokenObj = localStorage.getItem('token');
 
   const payload = {
@@ -72,6 +72,20 @@ export const getNearHospitals = (data) => {
   };
 
   return fetch(`${URL_BASE}/api/hospitals/search/${data.lat},${data.lng}`, payload);
+};
+
+const getNearNextPageHospitals = (nextPageToken) => {
+  const accessTokenObj = localStorage.getItem('token');
+
+  const payload = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessTokenObj}`,
+    },
+  };
+
+  return fetch(`${URL_BASE}/api/hospitals/search/next-page/${nextPageToken}`, payload);
 };
 
 const revalidateHospitalToken = (email) => {
@@ -93,6 +107,7 @@ const user = {
   loginAccount,
   registerHospital,
   revalidateHospitalToken,
+  getNearNextPageHospitals,
 };
 
 export default user;

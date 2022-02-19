@@ -53,6 +53,7 @@ const initialState = {
   currentUser: null,
   currentUsers: null,
   lastestHospitals: [],
+  nextPage: null,
 };
 
 function reducer(state = initialState, action = '') {
@@ -189,7 +190,8 @@ function reducer(state = initialState, action = '') {
     case GET_GOOGLE_HOSPITALS:
       return {
         ...state,
-        hospitals: newValue,
+        hospitals: newValue.hospitals,
+        nextPage: newValue.nextPage,
       };
     case SET_CURRENT_HOSPITAL:
       return {
