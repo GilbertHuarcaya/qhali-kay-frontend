@@ -52,7 +52,7 @@ const initialState = {
   currentHospital: null,
   currentUser: null,
   currentUsers: null,
-  lastestHospitals: null,
+  lastestHospitals: [],
 };
 
 function reducer(state = initialState, action = '') {
