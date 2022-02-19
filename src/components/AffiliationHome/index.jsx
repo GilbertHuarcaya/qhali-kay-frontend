@@ -1,11 +1,20 @@
 /* eslint-disable react/prop-types */
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { getAllHospitalsFromDB } from '../../store/actions';
 import DetailCard from '../DetailCard';
 
 const ServiceHome = ({ item }) => {
+  const dispatch = useDispatch();
   const lastestHospitals = useSelector((state) => state.lastestHospitals);
+  useEffect(() => {
+    if (lastestHospitals.length < 1) {
+      getAllHospitalsFromDB(dispatch);
+    }
+  }, [lastestHospitals]);
+
   return (
     <Container>
       <Row>

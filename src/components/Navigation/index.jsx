@@ -14,7 +14,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser, getAllHospitalsFromDB } from '../../store/actions';
+import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser } from '../../store/actions';
 import Slide from '../Slide';
 import logo from '../../images/logo.png';
 import './styles.scss';
@@ -35,7 +35,6 @@ const Navigation = ({ slide, color }) => {
   const hospitals = useSelector((state) => state.hospitals);
   const currentUsers = useSelector((state) => state.currentUsers);
   const currentUser = useSelector((state) => state.currentUser);
-  const lastestHospitals = useSelector((state) => state.lastestHospitals);
 
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
@@ -77,11 +76,11 @@ const Navigation = ({ slide, color }) => {
     }
   }, [currentUsers]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (!lastestHospitals) {
       getAllHospitalsFromDB(dispatch);
     }
-  }, [lastestHospitals]);
+  }, [lastestHospitals]); */
 
   useEffect(() => {
     const handleScroll = () => {

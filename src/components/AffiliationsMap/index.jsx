@@ -7,6 +7,8 @@ import Map, {
   GeolocateControl,
 } from 'react-map-gl';
 
+const mapToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+
 const AffiliationsMap = ({ children }) => (
   <Map
     initialViewState={{
@@ -18,6 +20,7 @@ const AffiliationsMap = ({ children }) => (
     }}
     style={{ width: 'auto', height: '93vh', position: 'sticky', top: '60px' }}
     mapStyle="mapbox://styles/mapbox/streets-v9"
+    mapboxAccessToken={mapToken}
   >
     <GeolocateControl position="top-left" />
     <FullscreenControl position="top-left" />
