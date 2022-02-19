@@ -41,7 +41,7 @@ const ServiceHome = ({ item }) => {
         <Col className="text-center mt-3">
           <Link
             className="mx-auto btn btn-qhali fw-bold text-white"
-            to="/services"
+            to="/affiliations"
           >
             See more affiliations
           </Link>

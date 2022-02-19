@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import DetailCard from '../DetailCard';
 import { getAllHospitalsFromDB } from '../../store/actions';
 import Loader from '../Loader';
+import AffiliationsMap from '../AffiliationsMap';
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ const Services = () => {
   }, [lastestHospitals]);
 
   return (
-    <Container>
-      <Row>
+    <Container className="w-100 d-flex justify-content-between">
+      <Row className="w-50">
         <h1 className="text-center py-5 fw-bold">
           Our
           {' '}
@@ -31,7 +32,7 @@ const Services = () => {
           </>
         ) : (
           lastestHospitals.map((i, index) => (
-            <Col xs={12} sm={6} md={4} lg={3} xl={2} key={`${index + 1}service`} className="my-3">
+            <Col xs={12} sm={12} md={6} lg={6} xl={4} key={`${index + 1}service`} className="my-3">
               <DetailCard
                 title={i.hospitalName}
                 subtitle={i.custom_json.vicinity}
@@ -47,6 +48,11 @@ const Services = () => {
             </Col>
           ))
         )}
+      </Row>
+      <Row className="w-50">
+        <Col xs={12} sm={12} md={12} lg={12} xl={12} className="my-3">
+          <AffiliationsMap />
+        </Col>
       </Row>
     </Container>
   );

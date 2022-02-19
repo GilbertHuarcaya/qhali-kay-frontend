@@ -128,7 +128,7 @@ const Navigation = ({ slide, color }) => {
             {/* <NavLink className="nav-link  text-qhali" to="/">
               Home
             </NavLink> */}
-            <NavLink className="nav-link  text-qhali" to="/services">
+            <NavLink className="nav-link  text-qhali" to="/affiliations">
               Affiliations
             </NavLink>
 
@@ -198,7 +198,7 @@ const Navigation = ({ slide, color }) => {
               >
                 <NavLink
                   className="nav-link mx-2"
-                  to="/services"
+                  to="/affiliations"
                   onClick={handleClose}
                 >
                   Affiliations

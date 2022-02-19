@@ -7,8 +7,7 @@ import Home from './pages/Home';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import LoginForm from './components/LoginForm';
-import Doctor from './components/Doctor';
-import Services from './components/Services';
+import Affiliations from './components/Affiliations';
 import ServiceDetails from './components/ServiceDetails';
 import Layout from './pages/Layout';
 import Feedback from './components/Feedback';
@@ -25,7 +24,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
-          <Route path="services" element={<Services />} />
+          <Route path="affiliations" element={<Affiliations />} />
           <Route
             path="/service-details/:name/:description/"
             element={<ServiceDetails />}
@@ -34,7 +33,6 @@ const App = () => (
             <Route path="" element={<MiPerfil />} />
             <Route path="change-password" element={<NewPassword />} />
           </Route>
-          <Route path="doctors" element={<Doctor />} />
           <Route path="contact-us" element={<Contact />} />
           <Route path="feedback" element={<Feedback />} />
           <Route path="near-med-center" element={<ListingsPage />} />
