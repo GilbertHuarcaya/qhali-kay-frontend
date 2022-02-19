@@ -14,7 +14,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser } from '../../store/actions';
+import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser, setQuery } from '../../store/actions';
 import Slide from '../Slide';
 import logo from '../../images/logo.png';
 import './styles.scss';
@@ -26,6 +26,7 @@ import NotVerified from '../NotVerified';
 const Navigation = ({ slide, color }) => {
   const location = useLocation();
   const qhaliUser = useSelector((state) => state.user);
+  const query = useSelector((state) => state.query);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const { user } = useAuth0();
@@ -197,6 +198,13 @@ const Navigation = ({ slide, color }) => {
               >
                 <NavLink
                   className="nav-link mx-2"
+                  to="/"
+                  onClick={handleClose}
+                >
+                  Home
+                </NavLink>
+                <NavLink
+                  className="nav-link mx-2"
                   to="/affiliations"
                   onClick={handleClose}
                 >
@@ -218,18 +226,17 @@ const Navigation = ({ slide, color }) => {
                     placeholder="Search"
                     className="me-2 m-0 p-0"
                     aria-label="Search"
+                    value={query}
+                    onChange={(event) => setQuery(event.currentTarget.value, dispatch)}
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Link to="/affiliations" onClick={handleClose}>
+                    <Button variant="outline-success">Search</Button>
+                  </Link>
                 </Form>
                 <br />
-                {!qhaliUser ? (
-                  <NavLink className="nav-link  text-qhali" to="/login">
-                    For Hospitals
-                  </NavLink>
-                ) : null}
                 {qhaliUser?.hospitalName ? (
-                  <NavLink className="nav-link  text-qhali" to="/chats">
-                    Chats
+                  <NavLink className="nav-link mx-2" onClick={handleClose} to="/chats">
+                    Hospital Chats
                   </NavLink>
                 ) : null}
                 {!qhaliUser && localStorage.token ? <Loader /> : null}
@@ -243,7 +250,7 @@ const Navigation = ({ slide, color }) => {
                       Profile
                     </NavLink>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
+                    <NavDropdown.Item href="#action5" onClick={handleClose}>
                       <LogoutBtn />
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -252,11 +259,11 @@ const Navigation = ({ slide, color }) => {
                 )}
                 {qhaliUser?.hospitalName && localStorage.token ? (
                   <NavDropdown title={qhaliUser.hospitalName.length > 10 ? `${qhaliUser.hospitalName.slice(0, 10)}...` : qhaliUser.hospitalName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
-                    <NavLink className="nav-link mx-2" to="/profile">
+                    <NavLink className="nav-link mx-2" to="/profile" onClick={handleClose}>
                       Med Profile
                     </NavLink>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
+                    <NavDropdown.Item href="#action5" onClick={handleClose}>
                       <LogoutBtn />
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -264,6 +271,11 @@ const Navigation = ({ slide, color }) => {
                   null
                 )}
                 {!qhaliUser && !localStorage.token ? <LoginBtn /> : null}
+                {!qhaliUser ? (
+                  <NavLink className="btn btn-auth px-3 text-qhali sticky-bottom mt-5" onClick={handleClose} to="/login">
+                    For Hospitals
+                  </NavLink>
+                ) : null}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

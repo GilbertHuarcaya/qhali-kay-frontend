@@ -33,6 +33,7 @@ import {
   SET_CURRENT_USER,
   LOGIN_HOSPITAL,
   GET_ALL_HOSPITALS,
+  SET_QUERY,
 } from './constants';
 
 import authService from '../services/auth';
@@ -43,6 +44,10 @@ import userService from '../services/user';
 import hospitalService from '../services/hospital';
 import orderPayment from '../services/payment';
 import chatService from '../services/chat';
+
+export const setQuery = (query, dispatch) => {
+  dispatch({ type: SET_QUERY, payload: query });
+};
 
 export const getAllHospitalsFromDB = async (dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });

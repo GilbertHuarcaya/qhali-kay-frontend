@@ -5,18 +5,19 @@
 /* eslint-disable no-console */
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Col, Row, Modal, Button } from 'react-bootstrap';
+import { Col, Row, Modal, Button, Form, FormControl } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { Marker, Popup } from 'react-map-gl';
 import Pin from './pin';
 import DetailCard from '../DetailCard';
-import { getAllHospitalsFromDB, setCurrentHospital, setCurrentUsers, createChatHospital } from '../../store/actions';
+import { getAllHospitalsFromDB, setCurrentHospital, setCurrentUsers, createChatHospital, setQuery } from '../../store/actions';
 import Loader from '../Loader';
 import AffiliationsMap from '../AffiliationsMap';
 
 const Services = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const query = useSelector((state) => state.query);
   const lastestHospitals = useSelector((state) => state.lastestHospitals);
   useEffect(() => {
     if (lastestHospitals.length < 1) {
@@ -26,6 +27,13 @@ const Services = () => {
 
   const [popupInfo, setPopupInfo] = useState(null);
   const [show, setShow] = useState(false);
+  const [queryHospitals, setQueryHospitals] = useState([]);
+
+  useEffect(() => {
+    if (!query && query.length < 1 && lastestHospitals) {
+      setQueryHospitals(lastestHospitals);
+    }
+  }, [lastestHospitals]);
 
   const createAndNavigate = async (value) => {
     const users = await setCurrentUsers(dispatch);
@@ -41,7 +49,7 @@ const Services = () => {
   };
 
   const pins = useMemo(
-    () => lastestHospitals.map((h, index) => (
+    () => queryHospitals.map((h, index) => (
       <Marker
         key={`marker-${index + 1}`}
         longitude={h.location.lng}
@@ -51,7 +59,7 @@ const Services = () => {
         <Pin onClick={() => setPopupInfo(h)} />
       </Marker>
     )),
-    [lastestHospitals],
+    [queryHospitals],
   );
 
   function mapWPopus() {
@@ -97,24 +105,47 @@ const Services = () => {
     );
   }
 
+  useEffect(() => {
+    if (query.length > 0) {
+      setQueryHospitals(
+        lastestHospitals.filter(
+          (hospital) => hospital.hospitalName.toLowerCase().includes(query),
+        ),
+      );
+    } else {
+      setQueryHospitals(lastestHospitals);
+    }
+  }, [query]);
+
   return (
     <div className="px-4 w-100 d-flex">
       <Row>
-        <h1 className="text-center py-5 fw-bold">
+        <h1 className="text-center pt-5 fw-bold">
           Our
           {' '}
           <span className="text-qhali">Affiliations</span>
         </h1>
+        <Form className="d-flex">
+          <FormControl
+            type="search"
+            placeholder="Search"
+            className="me-2 m-0 p-3"
+            aria-label="Search"
+            value={query}
+            onChange={(event) => setQuery(event.currentTarget.value, dispatch)}
+          />
+          <Button className="btn btn-qhali">Search</Button>
+        </Form>
         <Col xs={12} sm={12} md={6} lg={6} xl={6} className="my-3">
           <Row>
-            {lastestHospitals.length < 1 ? (
+            {queryHospitals.length < 1 ? (
               <>
                 <br />
                 <br />
                 <Loader />
               </>
             ) : (
-              lastestHospitals.map((i, index) => (
+              queryHospitals.map((i, index) => (
                 <Col xs={12} sm={6} md={12} lg={6} xl={4} key={`${index + 1}service`} className="pb-3">
                   <div onClick={() => { createAndNavigate({ ...i, username: i.hospitalName }); }} style={{ cursor: 'pointer' }}>
                     <DetailCard

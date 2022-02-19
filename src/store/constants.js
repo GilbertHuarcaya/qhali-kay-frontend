@@ -35,3 +35,4 @@ export const SET_CURRENT_HOSPITAL = 'set-current-hospital';
 export const SET_CURRENT_USERS = 'set-current-users';
 export const SET_CURRENT_USER = 'set-current-user';
 export const GET_ALL_HOSPITALS = 'all-hospitals';
+export const SET_QUERY = 'set-query';

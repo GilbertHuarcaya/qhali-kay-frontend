@@ -28,32 +28,34 @@ const MiPerfil = () => {
       </h5>
 
       <div className=" d-flex w-75">
-
-        <div className="card__form__group w-50">
-          <p className="card__form__titulo">
-            firstName
-          </p>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            className="card__form__input"
-            defaultValue={user.firstName || ''}
-          />
-        </div>
-
-        <div className="card__form__group w-50">
-          <p className="card__form__titulo">
-            lastName
-          </p>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            className="card__form__input"
-            defaultValue={user.lastName || ''}
-          />
-        </div>
+        {!user?.hospitalName ? (
+          <div className="card__form__group w-50">
+            <p className="card__form__titulo">
+              firstName
+            </p>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="card__form__input"
+              defaultValue={user.firstName || ''}
+            />
+          </div>
+        ) : null}
+        {!user?.hospitalName ? (
+          <div className="card__form__group w-50">
+            <p className="card__form__titulo">
+              lastName
+            </p>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="card__form__input"
+              defaultValue={user.lastName || ''}
+            />
+          </div>
+        ) : null}
       </div>
       {user?.userName ? (
         <div className="card__form__group w-75">

@@ -63,7 +63,7 @@ const Login = () => {
             />
           </Link>
           <p className="form_login__logo__text">
-            El mejor servicio, al mejor precio
+            Connecting for your health
           </p>
         </div>
         <div className="form_login__item">
@@ -96,9 +96,9 @@ const Login = () => {
           type="submit"
           disabled={!formOk}
         >
-          Ingresa
+          Login Hospital
         </button>
-        <p className="form_login__text">o Ingresa con:</p>
+        {/* <p className="form_login__text">o Ingresa con:</p>
         <div className="form_login__logos_login">
           <Link to="/">
             <i className="bi bi-google me-2" />
@@ -115,7 +115,7 @@ const Login = () => {
           <Link className="form_login__button__p" to="/forgot-password">
             Recuperala
           </Link>
-        </div>
+        </div> */}
       </form>
       {formData ? <p className="alert">{formData.message}</p> : null}
     </>
