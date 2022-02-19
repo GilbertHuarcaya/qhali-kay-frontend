@@ -21,6 +21,7 @@ import './styles.scss';
 import LoginBtn from '../LoginBtn';
 import LogoutBtn from '../LogoutBtn';
 import Loader from '../Loader';
+import NotVerified from '../NotVerified';
 
 const Navigation = ({ slide, color }) => {
   const location = useLocation();
@@ -269,7 +270,7 @@ const Navigation = ({ slide, color }) => {
           </Navbar.Offcanvas>
         </div>
       </Navbar>
-
+      {user && !user?.email_verified ? <NotVerified /> : null}
       {slide && <Slide />}
     </>
   );
