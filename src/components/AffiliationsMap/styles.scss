@@ -1,0 +1,17 @@
+#mapbox {
+  width: 50rem;
+  max-width: 90vw;
+  height: 50vh;
+  position: sticky;
+  top: 60px;
+}
+
+@media (min-width: 769px) {
+  #mapbox {
+    width: 80rem;
+    max-width: 50vw;
+    height: 93vh;
+    position: sticky;
+    top: 60px;
+  }
+}

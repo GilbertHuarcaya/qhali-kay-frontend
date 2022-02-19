@@ -40,7 +40,8 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
     "sweetalert": "^2.1.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -53,7 +54,9 @@
       ">0.2%",
       "not dead",
       "not op_mini all",
-      "not ie 11", "not chrome < 51", "not safari < 10"
+      "not ie 11",
+      "not chrome < 51",
+      "not safari < 10"
     ],
     "development": [
       "last 1 chrome version",

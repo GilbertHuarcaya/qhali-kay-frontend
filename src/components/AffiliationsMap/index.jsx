@@ -1,3 +1,5 @@
+/* eslint-disable import/no-webpack-loader-syntax */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import Map, {
@@ -5,7 +7,7 @@ import Map, {
   FullscreenControl,
   ScaleControl,
   GeolocateControl,
-} from 'react-map-gl';
+} from '!react-map-gl';
 
 const mapToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -18,7 +20,8 @@ const AffiliationsMap = ({ children }) => (
       bearing: 0,
       pitch: 0,
     }}
-    style={{ width: 'auto', height: '93vh', position: 'sticky', top: '60px' }}
+    id="mapbox"
+    style={{ minWidth: '48vw', maxWidth: '90vw', height: '93vh', position: 'sticky', top: '60px' }}
     mapStyle="mapbox://styles/mapbox/streets-v9"
     mapboxAccessToken={mapToken}
   >
