@@ -75,7 +75,7 @@ const Profile = () => {
         id="menu-perfil"
       >
         <form className="card__form">
-          <h4 className="card__form__h4">Cambie su foto</h4>
+          <h4 className="card__form__h4">Change photo</h4>
           <button
             type="button"
             className="card__form__close"
@@ -84,7 +84,7 @@ const Profile = () => {
             &times;
           </button>
           <div className="card__form__group">
-            <p className="card__form__titulo">Foto</p>
+            <p className="card__form__titulo">Photo</p>
             <input
               type="file"
               name="file"
@@ -105,9 +105,9 @@ const Profile = () => {
           <button
             type="button"
             onClick={onSubmitFoto}
-            className="card__form__btn"
+            className="btn btn-dark"
           >
-            Actualizar
+            Change
           </button>
         </form>
       </div>

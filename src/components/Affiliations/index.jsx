@@ -129,7 +129,7 @@ const Services = () => {
     if (query.length > 0) {
       setQueryHospitals(
         lastestHospitals.filter(
-          (hospital) => hospital.hospitalName.toLowerCase().includes(query),
+          (hospital) => hospital.hospitalName.toLowerCase().includes(query.toLowerCase()),
         ) || lastestHospitals,
       );
     } else {
