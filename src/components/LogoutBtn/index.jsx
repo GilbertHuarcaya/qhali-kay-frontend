@@ -13,6 +13,8 @@ const LogoutButton = () => {
   const logoutQhaliUser = (e) => {
     e.preventDefault();
     if (isAuthenticated) {
+      deleteUser(currentUser?.id);
+      logoutUser(dispatch);
       logout({ returnTo: window.location.origin });
     }
     deleteUser(currentUser?.id);

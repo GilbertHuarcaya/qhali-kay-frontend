@@ -37,7 +37,7 @@ const Contact = ({ md = 6 }) => {
 
   useEffect(() => {
     const validateForm = () => {
-      if (form.message && form.message?.length > 10) {
+      if (form.message && form.message?.length >= 10) {
         setFormOk(true);
       } else {
         setFormOk(false);
@@ -101,7 +101,14 @@ const Contact = ({ md = 6 }) => {
           <h3 className="text-center mt-3 text-qhali text-bold">Feedback</h3>
           <Form onSubmit={onSubmitFiles}>
             <Form.Group controlId="formBasicTextarea">
-              <Form.Label className="fw-bold">Message</Form.Label>
+              <Form.Label className="fw-bold">
+                Message
+                {' '}
+                <small>
+                  10 characters minimum
+                </small>
+
+              </Form.Label>
               <textarea
                 className="form-control"
                 rows="5"

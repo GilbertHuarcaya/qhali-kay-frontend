@@ -116,8 +116,8 @@ export const setCurrentUser = async (user, users, dispatch) => {
         first_name: user.fullname || user.hospitalName,
         last_name: user.fullname || user.hospitalName,
         username: user.userName || user.hospitalName,
-        secret: user.email,
-        email: user.email,
+        secret: user.email.toLowerCase(),
+        email: user.email.toLowerCase(),
       });
       return dispatch({ type: SET_CURRENT_USER, payload: currentUser });
     }

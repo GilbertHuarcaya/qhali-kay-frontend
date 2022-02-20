@@ -1,14 +1,36 @@
+import React, { useEffect } from 'react';
 import { ChatEngine } from 'react-chat-engine';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentUser, setCurrentUsers } from '../../../store/actions';
 
 export const projectID = process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID;
 
 const ChatsPage = () => {
   const currentUser = useSelector((state) => state.currentUser);
+  const currentUsers = useSelector((state) => state.currentUsers);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    if (user) {
+      setCurrentUsers(dispatch);
+      if (currentUsers) {
+        setCurrentUser(user, currentUsers, dispatch);
+      }
+      /* syncUsers(); */
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (currentUsers && user && !currentUser) {
+      setCurrentUser(user, currentUsers, dispatch);
+    }
+  }, [currentUsers]);
 
   return (
-    <div style={{ zIndex: '0' }}>
-      { // You need the creds correct before rendering Chat Engine
+    <div>
+      {currentUser ? (
+        <div style={{ zIndex: '0' }}>
+          { // You need the creds correct before rendering Chat Engine
           currentUser.username && currentUser.secret
           && (
           <ChatEngine
@@ -20,6 +42,9 @@ const ChatsPage = () => {
           />
           )
       }
+        </div>
+      ) : null}
+
     </div>
   );
 };

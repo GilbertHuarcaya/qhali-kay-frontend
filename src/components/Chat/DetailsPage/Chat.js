@@ -17,7 +17,7 @@ const Chat = ({ seller }) => {
   const [headers, setHeaders] = useState({
     'Project-ID': projectID,
     'User-Name': currentUser.username,
-    'User-Secret': currentUser.email,
+    'User-Secret': currentUser.email.toLowerCase(),
   });
 
   useEffect(() => {

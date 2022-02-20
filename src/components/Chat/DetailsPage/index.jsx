@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-grid-system';
 /* import { Link } from 'react-router-dom'; */
+import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../Navbar/deleteUser';
 import Chat from './Chat';
 import LoginBtn from '../../LoginBtn';
@@ -14,6 +15,7 @@ import DetailCard from '../../DetailCard';
 import Feedback from '../../Feedback';
 
 const DetailsPage = () => {
+  const navigate = useNavigate();
   const currentHospital = useSelector((state) => state.currentHospital);
   const currentUser = useSelector((state) => state.currentUser);
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +29,17 @@ const DetailsPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!currentHospital) {
+      navigate('/');
+    }
+  }, []);
+
   return (
     <div>
       {currentHospital
         && (
-        <Row className="w-100 m-0">
+        <Row className="w-100 m-0 justify-content-center">
           <Col xs={12} md={6}>
             <DetailCard
               title={currentHospital.username}
@@ -67,7 +75,7 @@ const DetailsPage = () => {
                 ) : <LoginBtn />}
             </div>
           </Col>
-          {currentUser
+          {currentUser && currentHospital.username !== currentUser.username
             ? (
               isOpen ? (
                 <Col xs={12} md={6} className="p-0 h-100" style={{ height: 'calc(100vh - 64px)', border: '1px solid #90d7ff' }}>
