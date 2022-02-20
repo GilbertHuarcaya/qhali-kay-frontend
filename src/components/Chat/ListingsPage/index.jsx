@@ -12,10 +12,12 @@ import { setCurrentHospital, setCurrentUsers, createChatHospital, getNextPageHos
 import DetailCard from '../../DetailCard';
 import AffiliationsMap from '../../AffiliationsMap';
 import './styles.scss';
+import Loader from '../../Loader';
 
 const ListingsPage = () => {
   const hospitals = useSelector((state) => state.hospitals);
   const nextPage = useSelector((state) => state.nextPage);
+  const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -52,6 +54,7 @@ const ListingsPage = () => {
     if (nextPage) {
       getNextPageHospitalsFromGoogle(nextPage, dispatch);
     }
+    navigate('/near-med-center');
   };
 
   const [popupInfo, setPopupInfo] = useState(null);
@@ -170,9 +173,16 @@ const ListingsPage = () => {
         </Col>
       </Row>
       {renderMapMobile()}
-      <Button className="btn btn-dark button__modal-map" onClick={() => setShow(true)}>
-        Map
+      <Button className="btn btn-dark button__modal-map" onClick={() => setShow(true)} hidden={!isMobile}>
+        {isLoading ? (
+          <Loader />
+        ) : <p className="p-0 m-0">Map</p> }
       </Button>
+      <div className="btn button__modal-map" hidden={isMobile}>
+        {isLoading ? (
+          <Loader />
+        ) : null }
+      </div>
     </div>
   );
 };

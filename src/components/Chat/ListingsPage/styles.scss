@@ -6,12 +6,3 @@
   width: 20rem;
   transform: translate(calc(50vw - 50%));
 }
-
-@media (min-width: 769px) {
-  .button__modal-map {
-    position: fixed;
-    bottom: -50px;
-    display: none;
-    margin: 0 auto;
-  }
-}

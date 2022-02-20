@@ -18,6 +18,7 @@ const Services = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useSelector((state) => state.query);
+  const isLoading = useSelector((state) => state.isLoading);
   const lastestHospitals = useSelector((state) => state.lastestHospitals);
   useEffect(() => {
     if (lastestHospitals.length < 1) {
@@ -189,9 +190,16 @@ const Services = () => {
         </Col>
       </Row>
       {renderMapMobile()}
-      <Button className="btn btn-dark button__modal-map" onClick={() => setShow(true)}>
-        Map
+      <Button className="btn btn-dark button__modal-map" onClick={() => setShow(true)} hidden={!isMobile}>
+        {isLoading ? (
+          <Loader />
+        ) : <p className="p-0 m-0">Map</p> }
       </Button>
+      <div className="btn button__modal-map" hidden={isMobile}>
+        {isLoading ? (
+          <Loader />
+        ) : null }
+      </div>
     </div>
   );
 };
