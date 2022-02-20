@@ -37,16 +37,13 @@ const ListingsPage = () => {
 
   const createAndNavigate = async (value) => {
     const users = await setCurrentUsers(dispatch);
-    console.log(users);
     const existingHospital = await users.find(
       (u) => value.email.toLowerCase() === u.email.toLowerCase(),
     );
     if (existingHospital === undefined) {
       const newHospital = await createChatHospital({ ...value, secret: value.email }, dispatch);
-      console.log(newHospital);
       return navigate(`/med-center/${newHospital.id}`);
     }
-    console.log(existingHospital);
     await setCurrentHospital(existingHospital, dispatch);
     return navigate(`/med-center/${existingHospital.id}`);
   };
