@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Modal, Button } from 'react-bootstrap';
@@ -19,6 +19,21 @@ const ListingsPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // choose the screen size
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  }, []);
 
   const createAndNavigate = async (value) => {
     const users = await setCurrentUsers(dispatch);
@@ -70,7 +85,7 @@ const ListingsPage = () => {
           <DetailCard
             title={hospital.username}
             subtitle={hospital.vicinity}
-            tag={hospital.custom_json.opening_hours && hospital.custom_json.opening_hours?.open_now ? 'open' : ''}
+            tag={hospital.custom_json.opening_hours ? (hospital.custom_json.opening_hours?.open_now ? 'open' : 'closed') : ''}
             tagBg={hospital.custom_json.opening_hours && hospital.custom_json.opening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
             iconName="fas fa-heart"
             btnIcon="fas fa-ellipsis-h"
@@ -98,12 +113,16 @@ const ListingsPage = () => {
           closeOnClick={false}
           onClose={() => setPopupInfo(null)}
         >
-          <div>
-            {popupInfo.username}
-            {' '}
-            |
-            {popupInfo.custom_json.opening_hours ? (popupInfo.custom_json.opening_hours?.open_now ? 'open' : 'closed') : ''}
-            |
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="m-0">
+              {popupInfo.username}
+              |
+              {popupInfo.custom_json.opening_hours ? (popupInfo.custom_json.opening_hours?.open_now ? 'open' : 'closed') : ''}
+              |
+            </p>
+            <button type="button" className="btn btn-qhali font-size-5" onClick={() => { createAndNavigate(popupInfo); }} style={{ cursor: 'pointer' }}>
+              Chat
+            </button>
             {/* <a
                   target="_new"
                   href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.hospitalName}, ${popupInfo.state}`}
@@ -146,7 +165,7 @@ const ListingsPage = () => {
               ? <button type="button" className="btn btn-qhali w-100 " onClick={onClickNextPage}>More Hospitals</button> : null}
           </Row>
         </Col>
-        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="my-3 p-0">
+        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="my-3 p-0" hidden={isMobile}>
           {mapWPopus()}
         </Col>
       </Row>

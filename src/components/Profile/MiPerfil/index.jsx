@@ -24,7 +24,7 @@ const MiPerfil = () => {
   return (
     <form className="card card-profile pt-3">
       <h5 className="card__form__h5">
-        You can see you own information:
+        You can see your own information:
       </h5>
 
       <div className=" d-flex w-75">

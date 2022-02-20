@@ -28,9 +28,24 @@ const Services = () => {
   const [popupInfo, setPopupInfo] = useState(null);
   const [show, setShow] = useState(false);
   const [queryHospitals, setQueryHospitals] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // choose the screen size
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
 
   useEffect(() => {
-    if (!query && query.length < 1 && lastestHospitals) {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  }, []);
+
+  useEffect(() => {
+    if (query.length < 1 && lastestHospitals) {
       setQueryHospitals(lastestHospitals);
     }
   }, [lastestHospitals]);
@@ -74,11 +89,16 @@ const Services = () => {
           closeOnClick={false}
           onClose={() => setPopupInfo(null)}
         >
-          <div>
-            {popupInfo.hospitalName}
-            ,
-            {popupInfo.custom_json.opening_hours ? (popupInfo.custom_json.opening_hours?.open_now ? 'open' : 'closed') : ''}
-            |
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="m-0">
+              {popupInfo.hospitalName}
+              |
+              {popupInfo.custom_json.opening_hours ? (popupInfo.custom_json.opening_hours?.open_now ? 'open' : 'closed') : ''}
+              |
+            </p>
+            <button type="button" className="btn btn-qhali font-size-5" onClick={() => { createAndNavigate({ ...popupInfo, username: popupInfo.hospitalName }); }} style={{ cursor: 'pointer' }}>
+              Chat
+            </button>
             {/* <a
                   target="_new"
                   href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.hospitalName}, ${popupInfo.state}`}
@@ -110,7 +130,7 @@ const Services = () => {
       setQueryHospitals(
         lastestHospitals.filter(
           (hospital) => hospital.hospitalName.toLowerCase().includes(query),
-        ),
+        ) || lastestHospitals,
       );
     } else {
       setQueryHospitals(lastestHospitals);
@@ -125,7 +145,7 @@ const Services = () => {
           {' '}
           <span className="text-qhali">Affiliations</span>
         </h1>
-        <Form className="d-flex">
+        <Form className="d-flex" onSubmit={(e) => e.preventDefault()}>
           <FormControl
             type="search"
             placeholder="Search"
@@ -142,7 +162,7 @@ const Services = () => {
               <>
                 <br />
                 <br />
-                <Loader />
+                {lastestHospitals.length > 1 && query.length > 1 ? <h1 className="text-center">No results</h1> : <Loader />}
               </>
             ) : (
               queryHospitals.map((i, index) => (
@@ -151,8 +171,6 @@ const Services = () => {
                     <DetailCard
                       title={i.hospitalName}
                       subtitle={i.custom_json.vicinity}
-                      tag={i.custom_json.opening_hours ? (i.custom_json.opening_hours?.open_now ? 'open' : 'closed') : ''}
-                      tagBg={i.custom_json.opening_hours && i.custom_json.opening_hours?.open_now ? '#b1ffe6' : '#b8b3be'}
                       centerIconName="fas fa-play-circle"
                       bottomIconName="fas fa-comment"
                       bgPhoto={i.custom_json.photo ? i.custom_json.photo.google_url : 'https://www.sanpablo.com.pe/wp-content/uploads/2018/09/FACHADA-SURCO-chica-clara-e1538239135354-1404x1024.jpg'}
@@ -166,7 +184,7 @@ const Services = () => {
             )}
           </Row>
         </Col>
-        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="my-3 p-0">
+        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="my-3 p-0" hidden={isMobile}>
           {mapWPopus()}
         </Col>
       </Row>

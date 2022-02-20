@@ -8,10 +8,9 @@ import {
   NavDropdown,
   Form,
   FormControl,
-  Button,
 } from 'react-bootstrap';
 import { useEffect, useState, useRef } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser, getUserFromLocalStorage, getHospitalsFromGoogle, setCurrentUsers, setCurrentUser, setQuery } from '../../store/actions';
@@ -25,6 +24,7 @@ import NotVerified from '../NotVerified';
 
 const Navigation = ({ slide, color }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const qhaliUser = useSelector((state) => state.user);
   const query = useSelector((state) => state.query);
   const dispatch = useDispatch();
@@ -117,6 +117,12 @@ const Navigation = ({ slide, color }) => {
   const handleClose = () => setShow(false);
   const toggleShow = () => setShow((s) => !s);
 
+  const handleQuery = (e) => {
+    e.preventDefault();
+    navigate('/affiliations');
+    handleClose();
+  };
+
   return (
     <>
       <Navbar expand="false" fixed="top" className={navBackground ? 'py-0 pr-0' : 'py-0 pr-0 content-dark'} style={{ zIndex: location.pathname === '/chats' || location.pathname.split('/').includes('med-center') ? '1' : '999', transition: '1s ease', backgroundColor: navBackground ? color : 'transparent' }}>
@@ -145,7 +151,7 @@ const Navigation = ({ slide, color }) => {
             ) : null}
             {qhaliUser?.hospitalName ? (
               <NavLink className="nav-link  text-qhali" to="/chats">
-                Chats
+                Hospital Chats
               </NavLink>
             ) : null}
             {!qhaliUser && localStorage.token ? <Loader /> : null}
@@ -220,7 +226,9 @@ const Navigation = ({ slide, color }) => {
                 <NavLink className="nav-link mx-2" to="/near-med-center" onClick={handleClose}>
                   Near Hospitals
                 </NavLink>
-                <Form className="d-flex">
+                <br />
+                <h4 className="text-center"><small> Looking for a Hospital? </small></h4>
+                <Form className="d-flex" onSubmit={(e) => handleQuery(e)}>
                   <FormControl
                     type="search"
                     placeholder="Search"
@@ -229,15 +237,15 @@ const Navigation = ({ slide, color }) => {
                     value={query}
                     onChange={(event) => setQuery(event.currentTarget.value, dispatch)}
                   />
-                  <Link to="/affiliations" onClick={handleClose}>
-                    <Button variant="outline-success">Search</Button>
-                  </Link>
                 </Form>
                 <br />
                 {qhaliUser?.hospitalName ? (
-                  <NavLink className="nav-link mx-2" onClick={handleClose} to="/chats">
-                    Hospital Chats
-                  </NavLink>
+                  <>
+                    <h4 className="text-center">For Hospitals</h4>
+                    <NavLink className="nav-link mx-2" onClick={handleClose} to="/chats">
+                      Hospital Chats
+                    </NavLink>
+                  </>
                 ) : null}
                 {!qhaliUser && localStorage.token ? <Loader /> : null}
                 {qhaliUser?.userName && localStorage.token ? (
