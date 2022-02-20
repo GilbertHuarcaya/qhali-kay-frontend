@@ -190,9 +190,10 @@ const Navigation = ({ slide, color }) => {
               </NavLink>
             ) : null}
           </div>
-          <div hidden={isMobile}>
+          <div hidden={isMobile} data-cy="profile-btn" className="profile-btn">
             {!qhaliUser && localStorage.token ? <Loader /> : null}
             {qhaliUser?.userName && localStorage.token ? (
+
               <NavDropdown title={qhaliUser.userName.length > 11 ? `${qhaliUser.userName.slice(0, 11)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
                 <NavLink className="nav-link mx-2" to="/profile">
                   Profile
@@ -202,6 +203,7 @@ const Navigation = ({ slide, color }) => {
                   <LogoutBtn />
                 </NavDropdown.Item>
               </NavDropdown>
+
             ) : (
               null
             )}

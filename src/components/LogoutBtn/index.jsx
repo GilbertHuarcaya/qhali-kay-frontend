@@ -23,6 +23,7 @@ const LogoutButton = () => {
   };
   return (
     <button
+      data-cy="logout-btn"
       type="button"
       className="btn btn-danger px-3 text-qhali w-100"
       onClick={(e) => logoutQhaliUser(e)}
