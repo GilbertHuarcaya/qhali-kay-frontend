@@ -13,15 +13,11 @@ const ChatsPage = () => {
   useEffect(() => {
     if (user) {
       setCurrentUsers(dispatch);
-      if (currentUsers) {
-        setCurrentUser(user, currentUsers, dispatch);
-      }
-      /* syncUsers(); */
     }
   }, [user]);
 
   useEffect(() => {
-    if (currentUsers && user && !currentUser) {
+    if (currentUsers) {
       setCurrentUser(user, currentUsers, dispatch);
     }
   }, [currentUsers]);
