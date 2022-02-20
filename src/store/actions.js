@@ -308,6 +308,23 @@ export const loginUser = async (dispatch, user) => {
   }
 };
 
+export const registerHospital = async (dispatch, newHospital) => {
+  dispatch({ type: SET_LOADING, payload: true });
+  try {
+    const response = await hospitalService.registerHospital(newHospital);
+    const data = await response.json();
+    if (!response.ok) {
+      return data;
+    }
+    return response;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    return console.error(error);
+  } finally {
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+
 export const registerUser = async (dispatch, newUser) => {
   dispatch({ type: SET_LOADING, payload: true });
   try {

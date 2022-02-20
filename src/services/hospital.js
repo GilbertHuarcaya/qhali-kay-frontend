@@ -20,10 +20,12 @@ const registerHospital = (hospital) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      hospitalName: hospital?.username,
+      hospitalName: hospital?.hospitalName,
       photo: hospital?.photo,
       email: hospital?.email,
       password: hospital?.password,
+      vicinity: hospital?.vicinity,
+      location: { lat: hospital.lat, lng: hospital.lng },
     }),
   };
   return fetch(`${URL_BASE}/api/hospitals`, payload);

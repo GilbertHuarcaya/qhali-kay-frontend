@@ -26,7 +26,6 @@ const Navigation = ({ slide, color }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const qhaliUser = useSelector((state) => state.user);
-  const query = useSelector((state) => state.query);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const { user } = useAuth0();
@@ -39,6 +38,28 @@ const Navigation = ({ slide, color }) => {
 
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  // choose the screen size
+  const handleResize = () => {
+    if (window.innerWidth < 760) {
+      setIsMobile(true);
+      setIsLaptop(true);
+    } else if (window.innerWidth > 760 && window.innerWidth < 1500) {
+      setIsLaptop(true);
+      setIsMobile(false);
+    } else {
+      setIsMobile(false);
+      setIsLaptop(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  }, []);
 
   useEffect(() => {
     const getCoords = async () => {
@@ -129,8 +150,22 @@ const Navigation = ({ slide, color }) => {
         <Link className="navbar__logo mx-2 text-qhali" to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
+        <div hidden={isMobile}>
+          <Form className="d-flex" onSubmit={(e) => handleQuery(e)}>
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2 m-0 px-3"
+              aria-label="Search"
+              onChange={(event) => setQuery(event.currentTarget.value, dispatch)}
+            />
+            <button type="submit" className="input-group-text border-0" id="search-addon">
+              <i className="fas fa-search" />
+            </button>
+          </Form>
+        </div>
         <div className="d-flex align-items-center">
-          <div className="navbar__options align-items-center">
+          <div className="navbar__options align-items-center" hidden={isLaptop}>
             {/* <NavLink className="nav-link  text-qhali" to="/">
               Home
             </NavLink> */}
@@ -154,6 +189,8 @@ const Navigation = ({ slide, color }) => {
                 Hospital Chats
               </NavLink>
             ) : null}
+          </div>
+          <div hidden={isMobile}>
             {!qhaliUser && localStorage.token ? <Loader /> : null}
             {qhaliUser?.userName && localStorage.token ? (
               <NavDropdown title={qhaliUser.userName.length > 11 ? `${qhaliUser.userName.slice(0, 11)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
@@ -232,11 +269,13 @@ const Navigation = ({ slide, color }) => {
                   <FormControl
                     type="search"
                     placeholder="Search"
-                    className="me-2 m-0 p-0"
+                    className="me-2 m-0 px-3"
                     aria-label="Search"
-                    value={query}
                     onChange={(event) => setQuery(event.currentTarget.value, dispatch)}
                   />
+                  <button type="submit" className="input-group-text border-0" id="search-addon">
+                    <i className="fas fa-search" />
+                  </button>
                 </Form>
                 <br />
                 {qhaliUser?.hospitalName ? (
