@@ -130,7 +130,8 @@ const Services = () => {
     if (query.length > 0) {
       setQueryHospitals(
         lastestHospitals.filter(
-          (hospital) => hospital.hospitalName.toLowerCase().includes(query.toLowerCase()),
+          (hospital) => hospital.hospitalName.toLowerCase().includes(query.toLowerCase())
+          || hospital.vicinity.toLowerCase().includes(query.toLowerCase()),
         ) || lastestHospitals,
       );
     } else {
