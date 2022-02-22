@@ -4,24 +4,24 @@ Web application to contact any hospital through chat, so you can generate querie
 
 ## Technologies
 Used:
-React
-Redux
-Axios
-Sass
-Auth0
-Chat Engine
-Eslint
-React-bootstrap
-React-simple-star-rating
-Mapbox-gl
-React-map-gl
+- React
+- Redux
+- Axios
+- Sass
+- Auth0
+- Chat Engine
+- Eslint
+- React-bootstrap
+- React-simple-star-rating
+- Mapbox-gl
+- React-map-gl
 
 ## Installation
 
 ```bash
 npm install
-npm start
 
+npm start
 ```
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
