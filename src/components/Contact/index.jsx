@@ -50,8 +50,8 @@ const Contact = () => {
     if (formData?.status === 200) {
       return (
         <PaymentSuccess
-          title="Envio realizado"
-          message="Thank you for your Feedback!!"
+          title="Message Sent"
+          message="Thank you for your Message!!"
           visible={success}
         />
       );
@@ -62,7 +62,7 @@ const Contact = () => {
           title="Error"
           message={formData?.message || 'Please try again...'}
           redirect="/"
-          button="Volver a Home"
+          button="Home"
           visible
           handleClose={handleClose}
         />
