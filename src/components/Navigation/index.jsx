@@ -26,6 +26,7 @@ const Navigation = ({ slide, color }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const qhaliUser = useSelector((state) => state.user);
+  const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const { user } = useAuth0();
@@ -220,7 +221,7 @@ const Navigation = ({ slide, color }) => {
             ) : (
               null
             )}
-            {!qhaliUser && !localStorage.token ? <LoginBtn /> : null}
+            {!qhaliUser && !isLoading ? <LoginBtn /> : null}
           </div>
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={toggleShow} className="mx-2" />
           <Navbar.Offcanvas
