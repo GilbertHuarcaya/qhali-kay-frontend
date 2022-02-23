@@ -9,9 +9,7 @@ const Review = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!reviews) {
-      getReviewsFromDB(dispatch);
-    }
+    getReviewsFromDB(dispatch);
   }, [reviews]);
   return (
     <Container>
@@ -27,7 +25,7 @@ const Review = () => {
               <span className="visually-hidden">Loading...</span>
             </div>
           ) : (
-            reviews.map((el) => (
+            reviews.slice((reviews.length - 5), reviews.length).map((el) => (
               <Carousel.Item
                 id="testimonial-carousel-item"
                 key={Math.random()}
