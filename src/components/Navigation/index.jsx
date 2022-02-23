@@ -289,7 +289,7 @@ const Navigation = ({ slide, color }) => {
                     </NavLink>
                   </>
                 ) : null}
-                {!qhaliUser && localStorage.token ? <Loader /> : null}
+                {!qhaliUser && isLoading ? <Loader /> : null}
                 {qhaliUser?.userName && localStorage.token ? (
                   <NavDropdown title={qhaliUser.userName.length > 10 ? `${qhaliUser.userName.slice(0, 10)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
 
@@ -320,7 +320,7 @@ const Navigation = ({ slide, color }) => {
                 ) : (
                   null
                 )}
-                {!qhaliUser && !localStorage.token ? <LoginBtn /> : null}
+                {!qhaliUser && !isLoading ? <LoginBtn /> : null}
                 {!qhaliUser ? (
                   <NavLink className="btn btn-auth px-3 text-qhali sticky-bottom mt-5" onClick={handleClose} to="/login">
                     For Hospitals
