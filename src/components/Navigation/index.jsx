@@ -192,7 +192,7 @@ const Navigation = ({ slide, color }) => {
             ) : null}
           </div>
           <div hidden={isMobile} data-cy="profile-btn" className="profile-btn">
-            {!qhaliUser && localStorage.token ? <Loader /> : null}
+            {!qhaliUser && isLoading ? <Loader /> : null}
             {qhaliUser?.userName && localStorage.token ? (
 
               <NavDropdown title={qhaliUser.userName.length > 11 ? `${qhaliUser.userName.slice(0, 11)}...` : qhaliUser.userName} id="offcanvasNavbarDropdown" className="btn m-0 p-0 text-white bg-auth text-center rounded my-0">
