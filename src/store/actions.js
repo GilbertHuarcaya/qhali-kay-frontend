@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-debugger */
 // eslint-disable-next-line camelcase
@@ -270,10 +271,9 @@ export const getUserFromLocalStorage = async (dispatch) => {
       : await authService.revalidateToken(decoded.email);
     const data = await response.json();
 
-    if (response.status === 401) {
+    if (response.status !== 200) {
       localStorage.removeItem('token');
-      dispatch({ type: LOGOUT_USER, payload: null });
-      return 'Your sesion expired, please sign in again';
+      return dispatch({ type: LOGOUT_USER, payload: null });
     }
 
     if (response.status === 200) {
