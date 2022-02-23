@@ -10,7 +10,7 @@ const Review = () => {
 
   useEffect(() => {
     getReviewsFromDB(dispatch);
-  }, [reviews]);
+  }, []);
   return (
     <Container>
       <Row style={{ minHeight: '10rem' }}>
